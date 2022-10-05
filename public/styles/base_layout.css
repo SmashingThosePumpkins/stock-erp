@@ -19,5 +19,6 @@ body {
 }
 
 .content-layout {
-   /* ENFEITE */
+   display: block;
+   width:100%;
 }

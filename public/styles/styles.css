@@ -50,3 +50,13 @@
     margin: 20px 50px 20px 50px;
     object-fit: cover;
 }
+
+.content-header {
+    background-color: var(white);
+    margin: 5vh 2vw 5vh 2vw;
+    min-height: 70px;
+    height: 11vh;
+    border-radius: 7px;
+    -webkit-box-shadow: 7px 7px 13px -11px #000000; 
+    box-shadow: 7px 7px 13px -11px #000000;
+}
