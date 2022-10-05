@@ -1,0 +1,23 @@
+html {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.wrapper {
+    margin: 0;
+    height: 100%;
+    display: flex;
+}
+
+.sidebar-layout {
+   width: 250px;
+}
+
+.content-layout {
+   /* ENFEITE */
+}
