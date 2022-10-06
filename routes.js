@@ -2,23 +2,27 @@ var express = require('express');
 var router = express.Router();
 
 router.get("/", function(req, res) {
-    console.log("Renderizando INDEX!");
-    res.render("index");
+    validateLoginThenRender("index", res);
 })
 
-router.get("/pag1", function(req, res) {
-    console.log("Renderizando PAGINA 1!");
-    res.render("pag1");
+router.get("/clients", function(req, res) {
+    validateLoginThenRender("clients", res);
 })
 
-router.get("/pag2", function(req, res) {
-    console.log("Renderizando PAGINA 2!");
-    res.render("pag2");
+router.get("/history", function(req, res) {
+    validateLoginThenRender("history", res);
 })
 
-router.get("/pag3", function(req, res) {
-    console.log("Renderizando PAGINA 3!");
-    res.render("pag3");
+router.get("/products", function(req, res) {
+    validateLoginThenRender("products", res);
 })
+
+router.get("/users", function(req, res) {
+    validateLoginThenRender("users", res);
+})
+
+function validateLoginThenRender(page, res) {
+    res.render(page);
+}
 
 module.exports = router;
