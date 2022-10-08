@@ -1,28 +1,58 @@
-var express = require('express');
+const express = require('express');
+const repository = require('./repository');
 var router = express.Router();
 
-router.get("/", function(req, res) {
-    validateLoginThenRender("index", res);
+router.get("/", function (req, res) {
+    res.render("index");
 })
 
-router.get("/clients", function(req, res) {
-    validateLoginThenRender("clients", res);
+router.get("/clients", function (req, res) {
+    res.render("clients");
 })
 
-router.get("/history", function(req, res) {
-    validateLoginThenRender("history", res);
+router.get("/history", function (req, res) {
+    res.render("history");
 })
 
-router.get("/products", function(req, res) {
-    validateLoginThenRender("products", res);
+router.get("/products", function (req, res) {
+    res.render("products");
 })
 
-router.get("/users", function(req, res) {
-    validateLoginThenRender("users", res);
+router.get("/users", async function (req, res) {
+    repository.findAllUsers().then(result => {
+        console.log(result[0]);
+        res.render("users", result[0]);
+    });
 })
 
-function validateLoginThenRender(page, res) {
-    res.render(page);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
