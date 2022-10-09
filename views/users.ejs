@@ -1,11 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt">
 <%- include('!head'); %>
+
 <body class="wrapper">
     <%- include('!nav'); %>
     <div class="content-layout">
         <%- include('!header'); %>
-        PAGINA USUARIOOOOOOssSSSSS
+        <table class="standard-table">
+            <tr>
+                <th>ID</th>
+                <th>Nome do usuário</th>
+                <th>Administrador</th>
+                <th>Data de criação</th>
+                <th>Último login</th>
+                <th width="50"> </th>
+            </tr>
+            <% users.forEach(user => { %>
+            <tr>
+                <td>
+                    <%= ("000" + user.id).substr(user.id.length-4) %>
+                </td>
+                <td><%= user.nome %></td>
+                <td><% if (user.administrador) { %>
+                    Sim
+                    <% } else { %>
+                    Não
+                    <% }; %></td>
+                <td><%= user.data_criacao != null ? user.data_criacao
+                                                        .toISOString()
+                                                        .replace(/T/, ' ')
+                                                        .replace(/\..+/, '') 
+                                                        : "N/A" %>
+                </td>
+                <td><%= user.ultimo_login != null ? user.ultimo_login
+                                                        .toISOString()
+                                                        .replace(/T/, ' ')
+                                                        .replace(/\..+/, '') 
+                                                        : "N/A" %>
+                </td>
+                <td>
+                    <div class="table-button-container">
+                        <button class="table-button button-green">✎</button>
+                        <button class="table-button button-red">✗</button>
+                    </div>
+                </td>
+            </tr>
+            <% }); %>
+        </table>
     </div>
 </body>
+
 </html>

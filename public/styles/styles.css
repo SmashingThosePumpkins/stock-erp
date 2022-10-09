@@ -3,8 +3,8 @@
 @font-face {
     font-family: "Poppins";
     src: url('/fonts/poppins/Poppins-Regular.ttf') format('truetype'),
-            url('/fonts/poppins/Poppins-Bold.ttf') format('truetype');
-  }
+        url('/fonts/poppins/Poppins-Bold.ttf') format('truetype');
+}
 
 :root {
     --marigold: #f0a202ff;
@@ -15,13 +15,23 @@
     font-family: 'Poppins', sans-serif;
 }
 
+::-moz-selection {
+    color: black;
+    background: var(--marigold);
+}
+
+::selection {
+    color: black;
+    background: var(--marigold);
+}
+
 .sidebar {
     color: white;
     background-color: var(--oxford-blue);
 }
 
 .sidebar a {
-    color:white;
+    color: white;
     text-decoration: none;
 }
 
@@ -55,8 +65,73 @@
     background-color: var(white);
     margin: 5vh 2vw 5vh 2vw;
     min-height: 70px;
-    height: 11vh;
+    height: 15vh;
     border-radius: 7px;
-    -webkit-box-shadow: 7px 7px 13px -11px #000000; 
+    -webkit-box-shadow: 7px 7px 13px -11px #000000;
     box-shadow: 7px 7px 13px -11px #000000;
+}
+
+.standard-table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+    -webkit-box-shadow: 3px 3px 9px -8px #000000;
+    box-shadow: 3px 3px 9px -8px #000000;
+}
+
+.standard-table td,
+.standard-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.standard-table tr {
+    transition-duration: 0.1s;
+}
+
+.standard-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.standard-table tr:hover {
+    background-color: var(--morning-blue);
+}
+
+.standard-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    font-weight: bold;
+    background-color: var(--flame);
+    color: white;
+}
+
+.table-button {
+    transition-duration: 0.5s;
+    transform: translateY(0);
+    border: 1px solid var(--morning-blue);
+    border-radius: 3px;
+    font-size: 0.7em;
+    padding: 0px;
+    width: 2em;
+    height: 2em;
+}
+
+.table-button:hover {
+    transition-duration: 0.5s;
+    transform: translateY(-0.2em);
+    background-color: var(--marigold);
+}
+
+.table-button:active {
+    transition-duration: 0.2s;
+    transform: translateY(0);
+}
+
+.button-red {
+    background-color: var(--tangerine);
+}
+
+.button-green {
+    background-color: var(--tangerine);
 }

@@ -20,10 +20,13 @@ router.get("/products", function (req, res) {
 
 router.get("/users", async function (req, res) {
     repository.findAllUsers().then(result => {
-        console.log(result[0]);
-        res.render("users", result[0]);
+        console.log(result);
+        res.render("users", {
+            users: result[0]
+        });
     });
 })
+
 
 
 
