@@ -16,5 +16,10 @@ module.exports = {
         return pool.query(
             "SELECT * FROM usuario"
         );
+    },
+    findUser: async function(id) {
+        return pool.query(
+            "SELECT * FROM usuario WHERE usuario.id = ?", id
+        );
     }
 };

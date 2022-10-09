@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt">
+<%- include('!head'); %>
+
+<body class="wrapper">
+    <%- include('!nav'); %>
+    <div class="content-layout">
+        <%- include('!header'); %>
+        <h1>
+            Editar usuário
+        </h1>
+        <div class="bordered-div">
+        <h2>
+            Você está editando o usuário de ID [<%= ("000" + user[0].id).substr(user[0].id.length-4) %>]
+        </h2>
+        <form class="form">
+            <label for="fuser">Nome de usuário:</label> <br>
+            <input type="text" id="fuser" value="<%= user[0].nome %>"> <br>
+            <label for="fpass">Senha:</label> <br>
+            <input type="password" id="fpass" value="<%= user[0].password %>"> <br>
+            <label for="fadmin" class="checkbox">
+                <input type="checkbox" id="fadmin" <% if (user[0].administrador == 1) { %> checked <% } %>)>
+                <span>Administrador</span>
+            </label><br>
+            <input class="submit-button" type="submit" value="Salvar alterações">
+        </form>
+        </div>
+    </div>
+</body>
+
+</html>

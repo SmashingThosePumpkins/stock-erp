@@ -27,6 +27,34 @@ router.get("/users", async function (req, res) {
     });
 })
 
+router.get("/edit/user", async function (req, res) {
+    var id = req.query.id;
+    if (id) {
+        repository.findUser(id).then(result => {
+            console.log(result);
+            res.render("edit_user", {
+                user: result[0]
+            });
+        });
+    } else {
+        repository.findAllUsers().then(result => {
+            console.log(result);
+            res.render("users", {
+                users: result[0]
+            });
+        });
+    }
+})
+
+router.get("/remove/user", async function (req, res) {
+    var id = req.query.id;
+    repository.findUser(id).then(result => {
+        console.log(result);
+        res.render("remove_user", {
+            user: result[0]
+        });
+    });
+})
 
 
 
