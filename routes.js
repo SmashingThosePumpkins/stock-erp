@@ -20,7 +20,6 @@ router.get("/products", function (req, res) {
 
 router.get("/users", async function (req, res) {
     repository.findAllUsers().then(result => {
-        console.log(result);
         res.render("users", {
             users: result[0]
         });
@@ -31,19 +30,26 @@ router.get("/edit/user", async function (req, res) {
     var id = req.query.id;
     if (id) {
         repository.findUser(id).then(result => {
-            console.log(result);
             res.render("edit_user", {
                 user: result[0]
             });
         });
     } else {
         repository.findAllUsers().then(result => {
-            console.log(result);
             res.render("users", {
                 users: result[0]
             });
         });
     }
+})
+
+router.post("/edit/user", async function (req, res, next) {
+    console.log(req.body);
+    console.log(req.body[0]);
+    console.log(req);
+    repository.alterUser(req.body[0]).then(result => {
+        res.redirect(result, "/users");
+    });
 })
 
 router.get("/remove/user", async function (req, res) {
@@ -55,34 +61,6 @@ router.get("/remove/user", async function (req, res) {
         });
     });
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

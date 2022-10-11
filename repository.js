@@ -21,5 +21,17 @@ module.exports = {
         return pool.query(
             "SELECT * FROM usuario WHERE usuario.id = ?", id
         );
+    },
+    alterUser: async function(user) {
+        console.log(user)
+        var username = user.nome;
+        var password = user.senha;
+        var admin = user.administrador;
+        var id = user.id;
+        var result = pool.query(
+            "UPDATE usuario SET nome = ?, senha = ?, administrador = ? WHERE usuario.id = ?", username, password, admin, id
+        );
+        console.log(result);
+        return 0;
     }
 };

@@ -13,13 +13,13 @@
         <h2>
             Você está editando o usuário de ID [<%= ("000" + user[0].id).substr(user[0].id.length-4) %>]
         </h2>
-        <form class="form">
-            <label for="fuser">Nome de usuário:</label> <br>
+        <form class="form" action="/edit/user" method="post" enctype="application/json">
+            <label for="fuser" name="nome">Nome de usuário:</label> <br>
             <input type="text" id="fuser" value="<%= user[0].nome %>"> <br>
-            <label for="fpass">Senha:</label> <br>
+            <label for="fpass" name="senha">Senha:</label> <br>
             <input type="password" id="fpass" value="<%= user[0].password %>"> <br>
             <label for="fadmin" class="checkbox">
-                <input type="checkbox" id="fadmin" <% if (user[0].administrador == 1) { %> checked <% } %>)>
+                <input type="checkbox" id="fadmin" nome="administrador" <% if (user[0].administrador == 1) { %> checked <% } %>)>
                 <span>Administrador</span>
             </label><br>
             <input class="submit-button" type="submit" value="Salvar alterações">
