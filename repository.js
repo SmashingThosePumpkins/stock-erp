@@ -12,26 +12,33 @@ const pool = mysql.createPool({
 }).promise();
 
 module.exports = {
-    findAllUsers: async function() {
+    findAllUsers: async function () {
         return pool.query(
             "SELECT * FROM usuario"
         );
     },
-    findUser: async function(id) {
+    findUser: async function (id) {
         return pool.query(
             "SELECT * FROM usuario WHERE usuario.id = ?", id
         );
     },
-    alterUser: async function(user) {
-        console.log(user)
-        var username = user.nome;
-        var password = user.senha;
-        var admin = user.administrador;
-        var id = user.id;
-        var result = pool.query(
-            "UPDATE usuario SET nome = ?, senha = ?, administrador = ? WHERE usuario.id = ?", username, password, admin, id
-        );
-        console.log(result);
-        return 0;
+    alterUser: async function (user) {
+        let id = user.id;
+        if (!id) return 400;
+
+        let username = "";
+        if (user.nome) username = `nome = "${user.nome}", `;
+
+        let password = "";
+        if (user.senha) password = `senha = "${user.senha}", `;
+
+        let admin = "";
+        if (user.administrador) admin = `administrador = 1 `;
+        else admin = `administrador = 0 `;
+
+        let query = "UPDATE usuario SET ".concat(username, password, admin, `WHERE usuario.id = ${id}`);
+        console.log(`query -> ${query}`)
+        await pool.query(query).then((result) => console.log(result));
+        return 100;
     }
 };

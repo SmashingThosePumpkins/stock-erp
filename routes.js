@@ -43,12 +43,13 @@ router.get("/edit/user", async function (req, res) {
     }
 })
 
-router.post("/edit/user", async function (req, res, next) {
-    console.log(req.body);
-    console.log(req.body[0]);
-    console.log(req);
-    repository.alterUser(req.body[0]).then(result => {
-        res.redirect(result, "/users");
+router.post("/edit/user", async function (req, res) {
+    repository.alterUser(req.body).then(result => {
+        repository.findAllUsers().then(result => {
+            res.render("users", {
+                users: result[0]
+            });
+        });
     });
 })
 
