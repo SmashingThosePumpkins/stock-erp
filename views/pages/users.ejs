@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <%- include('../partials/head'); %>
+
 <body class="wrapper">
     <%- include('../partials/nav'); %>
     <div class="content-layout">
@@ -40,17 +41,18 @@
                 <td>
                     <div class="table-button-container">
                         <a href="/edit/user?id=<%= user.id %>">
-                            <button class="table-button button-green">✎</button>
+                            <button class="table-button button-red">✎</button>
                         </a>
-                        
-                            <button class="table-button button-red" data-remove-user-id="<%= user.id %>">✗</button>
-                        
+
+                        <button class="table-button button-red" data-remove-user-id="<%= user.id %>"
+                            onclick="toggleModal('remove-modal', '<%= user.id %>');">✗</button>
+
                     </div>
                 </td>
             </tr>
             <% }); %>
         </table>
-        <button id="testModal">me clica</button>
+        <%- include('../partials/remove-modal'); %>
     </div>
 </body>
 

@@ -54,7 +54,7 @@ router.post("/edit/user", async function (req, res) {
 })
 
 router.get("/remove/user", async function (req, res) {
-    var id = req.body.id;
+    var id = req.query.id;
     repository.deleteUser(id).then(result => {
         console.log(result);
         repository.findAllUsers().then(result => {
