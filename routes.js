@@ -26,45 +26,17 @@ router.get("/users", async function (req, res) {
     });
 })
 
-router.get("/edit/user", async function (req, res) {
-    var id = req.query.id;
-    if (id) {
-        repository.findUser(id).then(result => {
-            res.render("pages/edit_user", {
-                user: result[0]
-            });
-        });
-    } else {
-        repository.findAllUsers().then(result => {
-            res.render("pages/users", {
-                users: result[0]
-            });
-        });
-    }
-})
-
 router.post("/edit/user", async function (req, res) {
     repository.alterUser(req.body).then(result => {
-        repository.findAllUsers().then(result => {
-            res.render("pages/users", {
-                users: result[0]
-            });
-        });
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
     });
 })
 
 router.get("/remove/user", async function (req, res) {
     var id = req.query.id;
     repository.deleteUser(id).then(result => {
-        console.log(result);
-        repository.findAllUsers().then(result => {
-            res.render("pages/users", {
-                users: result[0]
-            });
-        });
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
     });
 })
-
-
 
 module.exports = router;
