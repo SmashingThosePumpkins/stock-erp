@@ -1,5 +1,8 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const app = express();
+
+dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -13,7 +16,7 @@ app.use('/images', express.static('public/img'));
 app.use('/fonts', express.static('public/fonts'));
 app.use('/scripts', express.static('public/scripts'));
 
-var server = app.listen(6900, function () {
+var server = app.listen(process.env.SERVER_PORT, function () {
   var host = server.address().address
   var port = server.address().port
 
