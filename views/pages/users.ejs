@@ -40,19 +40,19 @@
                 </td>
                 <td>
                     <div class="table-button-container">
-                        <a href="/edit/user?id=<%= user.id %>">
-                            <button class="table-button button-red">✎</button>
-                        </a>
+                        <button class="table-button button-red"
+                        onclick="toggleEditModal('<%= JSON.stringify(user) %>');">✎</button>
 
-                        <button class="table-button button-red" data-remove-user-id="<%= user.id %>"
-                            onclick="toggleModal('remove-modal', '<%= user.id %>');">✗</button>
+                        <button class="table-button button-red"
+                            onclick="toggleRemoveModal('<%= user.id %>');">✗</button>
 
                     </div>
                 </td>
             </tr>
             <% }); %>
         </table>
-        <%- include('../partials/remove-modal'); %>
+        <%- include('../partials/remove-user-modal'); %>
+        <%- include('../partials/edit-user-modal'); %>
     </div>
 </body>
 

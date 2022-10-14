@@ -1,0 +1,21 @@
+<div class="popup-position popup-wrapper" id="remove-user-modal">
+    <div id="popup-container">
+        <h2>Remover usuário</h2>
+        <p> Você está prestes a remover o usuário de ID [<label id="remove-user-modal-id-label"></label>] </p>
+        <p> Deseja continuar? </p>
+        <button class="pretty-button" onclick="toggleRemoveModal(0)">Cancelar</button>
+        <a href="#" id="remove-user-modal-reference">
+            <button class="pretty-button button-red">Remover</button>
+        </a>
+    </div>
+
+    <script>
+        function toggleRemoveModal(userid) {
+            if (userid) {
+                document.getElementById('remove-user-modal-id-label').textContent = userid;
+                document.getElementById('remove-user-modal-reference').href="remove/user?id="+userid; 
+            }
+            document.getElementById('remove-user-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

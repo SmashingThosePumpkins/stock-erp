@@ -245,27 +245,35 @@ p {
     border: 2px solid black;
 }
 
-.submit-button {
+.pretty-button {
     cursor: pointer;
     transition-duration: 0.5s;
     transform: translateY(0);
     border: 1px solid black;
     border-radius: 2px;
-    font-size: medium;
+    font-size: small;
     padding: 0.4em 1.4em;
-    background-color: var(--oxford-blue);
-    color: white;
+    color: black;
 }
 
-.submit-button:hover {
+
+.pretty-button:hover {
     transform: translateY(-0.1em);
+}
+
+.pretty-button:focus {
+    transform: translateY(-0.1em);
+    background-color: var(--morning-blue);
+}
+
+.submit-button {
+    background-color: var(--oxford-blue);
+    color: white;
 }
 
 .submit-button:focus {
     background-color: var(--morning-blue);
 }
-
-
 
 .popup-position {
     display: none;
