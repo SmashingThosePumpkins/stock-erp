@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt">
-<%- include('!head'); %>
-
+<%- include('../partials/head'); %>
 <body class="wrapper">
-    <%- include('!nav'); %>
+    <%- include('../partials/nav'); %>
     <div class="content-layout">
-        <%- include('!header'); %>
+        <%- include('../partials/header'); %>
         <table class="standard-table">
             <tr>
                 <th>ID</th>
@@ -43,14 +42,15 @@
                         <a href="/edit/user?id=<%= user.id %>">
                             <button class="table-button button-green">✎</button>
                         </a>
-                        <a href="/remove/user?id=<%= user.id %>">
-                            <button class="table-button button-red">✗</button>
-                        </a>
+                        
+                            <button class="table-button button-red" data-remove-user-id="<%= user.id %>">✗</button>
+                        
                     </div>
                 </td>
             </tr>
             <% }); %>
         </table>
+        <button id="testModal">me clica</button>
     </div>
 </body>
 

@@ -36,9 +36,14 @@ module.exports = {
         if (user.administrador) admin = `administrador = 1 `;
         else admin = `administrador = 0 `;
 
-        let query = "UPDATE usuario SET ".concat(username, password, admin, `WHERE usuario.id = ${id}`);
+        let query = "UPDATE usuario SET ".concat(username, password, admin, `WHERE usuario.id = ${id};`);
         console.log(`query -> ${query}`)
-        await pool.query(query).then((result) => console.log(result));
+        await pool.query(query);
+        return 100;
+    },
+    deleteUser: async function (id) {
+        if (!id) return 400;
+        await pool.query("DELETE FROM usuario WHERE usuario.id = ?;", id);
         return 100;
     }
 };
