@@ -6,10 +6,6 @@
         url('/fonts/poppins/Poppins-Bold.ttf') format('truetype');
 }
 
-* {
-    font-family: 'Poppins', sans-serif;
-}
-
 :root {
     --marigold: #f0a202ff;
     --tangerine: #f18805ff;
@@ -18,6 +14,24 @@
     --morning-blue: #7b9e89ff;
     font-family: 'Poppins', sans-serif;
 }
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: none;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--oxford-blue);
+    border-radius: 20px;
+    border: var(--morning-blue);
+  }
 
 ::-moz-selection {
     color: black;
@@ -30,6 +44,7 @@
 }
 
 .sidebar {
+    width: 250px;
     color: white;
     background-color: var(--oxford-blue);
 }
@@ -64,15 +79,22 @@
     margin: 20px 50px 20px 50px;
     object-fit: cover;
 }
-
-.content-header {
-    background-color: var(white);
-    margin: 0vh 0vw 5vh 0vw;
-    min-height: 70px;
-    height: 15vh;
-    border-radius: 7px;
+.header {
     -webkit-box-shadow: 7px 7px 13px -11px #000000;
     box-shadow: 7px 7px 13px -11px #000000;
+    background: linear-gradient(to bottom,#fff, #eaeaea);
+    width: 100%;
+    min-height: 70px;
+    height: 15vh;
+    border-radius: 0px 0px 7px 7px;
+    margin: 0vh 0vw 5vh 0vw;
+}
+
+.content-header {
+    display: flex;
+        height: 100%;
+        align-items:center;
+        margin: 0px 3vw 0px 3vw;
 }
 
 .content-layout {
@@ -275,6 +297,34 @@ p {
     background-color: var(--morning-blue);
 }
 
+.add-button {
+    font-size: 0.9em;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom-width: 0px;
+    background-color: var(--tangerine);
+}
+
+.add-button:hover,
+    .add-button:focus {
+transform: none;
+background-color: var(--marigold);    
+
+}
+
+.search-button {
+    font-size: 0.9em;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom-width: 0px;
+    background-color: var(--morning-blue);
+}
+
+.search-button:hover,
+.search-button:focus {
+transform: none;
+background-color: #999;   
+
+}
+
 .popup-position {
     display: none;
     position: fixed;
@@ -301,3 +351,30 @@ p {
     display: block;
 }
 
+.tabs-div {
+    width: 90%;
+    text-align: right;
+}
+.tabs-div > * {
+    margin-left: 15px;
+}
+
+.tab-leaner {
+    border: 2px solid #ddd;
+    border-top-color: #000000;
+    border-radius: 5px;
+    margin: 0vh 2vw 0 2vw;
+    -webkit-box-shadow: 3px 3px 9px -8px #000000;
+    box-shadow: 3px 3px 9px -8px #000000;
+}
+
+.light-bordered-container {
+    border: 1px solid #ddd;
+    margin: 0 2vw 0 2vw;
+    padding: 3vh 0 6vh 0px;
+}
+
+.page-title {
+    font-size: xx-large;
+    vertical-align: middle;
+}

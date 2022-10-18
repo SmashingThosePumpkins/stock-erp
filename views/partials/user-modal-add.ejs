@@ -1,0 +1,29 @@
+<div class="popup-position popup-wrapper" id="add-user-modal">
+    <div id="popup-container">
+        <h2>Adicionar novo usuário</h2>
+        <form class="form" action="/add/user" method="post" enctype="application/json">
+            <input type="text" name="id" id="add-user-id" hidden>
+            <label>Nome de usuário:</label> <br>
+            <input type="text" name="nome" id="add-user-name"> <br>
+            <label>Senha:</label> <br>
+            <input type="password" name="senha" id="add-user-password"> <br>
+            <label class="checkbox">
+                <input type="checkbox" name="administrador" id="add-user-admin">
+                <span>Administrador</span>
+            </label><br>
+            <button class="pretty-button" type="button" id="cancel" onclick="toggleAddModal()">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Adicionar usuário">
+        </form>
+    </div>
+
+    <script>
+        function toggleAddModal() {
+            document.getElementById('add-user-id').value = "";
+            document.getElementById('add-user-name').value =  "";
+            document.getElementById('add-user-password').value =  "";
+            document.getElementById('add-user-admin').checked = false;
+
+            document.getElementById('add-user-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

@@ -4,8 +4,16 @@
 <body class="wrapper">
     <%- include('../partials/nav'); %>
     <div class="content-layout">
-        <%- include('../partials/header'); %>
-        PAGINA PRUDUTOS
+        <%- include('../partials/header', {"page": "Produtos"}); %>
+        Ideias para a pagina produtos: <br>
+        - tabela simples com os itens da tabela de produtos<br>
+        - opção de adicionar um item novo (administrador)<br>
+        - opção de criar venda<br>&nbsp;&nbsp;&nbsp;&nbsp;
+        - modal<br>&nbsp;&nbsp;&nbsp;&nbsp;
+        - esse modal será separado em duas colunas, uma com itens de uma pesquisa e uma com um "carrinho de compras" + a inserção do cliente (com aquele esquema de validar cpf)<br>&nbsp;&nbsp;&nbsp;&nbsp;
+        - na aba de itens de pesquisa, será possível procurar por itens do banco de dados<br>&nbsp;&nbsp;&nbsp;&nbsp;
+        - nos itens do carrinho de compras, será inserido o preço de cada item, e removê-lo do carrinho<br>&nbsp;&nbsp;&nbsp;&nbsp;
+        - ao clicar em "realizar venda", os dados serão validados e a venda será realizada
     </div>
 </body>
 </html>

@@ -7,7 +7,11 @@ router.get("/", function (req, res) {
 })
 
 router.get("/clients", function (req, res) {
-    res.render("pages/clients");
+    repository.findAllClients().then(result => {
+        res.render("pages/clients", {
+            clients: result[0]
+        });
+    });
 })
 
 router.get("/history", function (req, res) {
@@ -28,6 +32,12 @@ router.get("/users", async function (req, res) {
 
 router.post("/edit/user", async function (req, res) {
     repository.alterUser(req.body).then(result => {
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
+    });
+})
+
+router.post("/add/user", async function (req, res) {
+    repository.addUser(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
     });
 })

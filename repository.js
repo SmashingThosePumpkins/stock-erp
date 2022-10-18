@@ -37,7 +37,6 @@ module.exports = {
         else admin = `administrador = 0 `;
 
         let query = "UPDATE usuario SET ".concat(username, password, admin, `WHERE usuario.id = ${id};`);
-        console.log(`query -> ${query}`)
         await pool.query(query);
         return 100;
     },
@@ -45,5 +44,22 @@ module.exports = {
         if (!id) return 400;
         await pool.query("DELETE FROM usuario WHERE usuario.id = ?;", id);
         return 100;
-    }
+    },
+    addUser: async function (user) {
+        if (!user.nome || !user.senha || !user.administrador) return 400;
+
+        let admin = 0;
+        if (user.administrador) admin = 1;
+
+        let query = `INSERT INTO usuario VALUES (null, "${user.nome}", "${user.senha}", ${admin}, "${new Date().toISOString().slice(0, 19).replace('T', ' ')}", null);`;
+        console.log(query);
+        await pool.query(query);
+        return 100;
+    },
+
+    findAllClients: async function () {
+        return pool.query(
+            "SELECT * FROM perfil_cliente"
+        );
+    },
 };

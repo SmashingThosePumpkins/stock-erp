@@ -5,54 +5,62 @@
 <body class="wrapper">
     <%- include('../partials/nav'); %>
     <div class="content-layout">
-        <%- include('../partials/header'); %>
-        <table class="standard-table">
-            <tr>
-                <th>ID</th>
-                <th>Nome do usuário</th>
-                <th>Administrador</th>
-                <th>Data de criação</th>
-                <th>Último login</th>
-                <th width="50"> </th>
-            </tr>
-            <% users.forEach(user => { %>
-            <tr>
-                <td>
-                    <%= ("000" + user.id).substr(user.id.length-4) %>
-                </td>
-                <td><%= user.nome %></td>
-                <td><% if (user.administrador) { %>
-                    Sim
-                    <% } else { %>
-                    Não
-                    <% }; %></td>
-                <td><%= user.data_criacao != null ? user.data_criacao
+        <%- include('../partials/header', {"page": "Usuários"}); %>
+        <div class="tabs-div">
+            <button class="add-button pretty-button" onclick="toggleAddModal()">+ Adicionar usuário</button>
+        </div>
+        <hr class="tab-leaner" />
+        <div class="light-bordered-container" style="overflow-y: auto; height: 50vh;">
+            <table class="standard-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do usuário</th>
+                    <th>Administrador</th>
+                    <th>Data de criação</th>
+                    <th>Último login</th>
+                    <th width="50"> </th>
+                </tr>
+                <% users.forEach(user => { %>
+                <tr>
+                    <td>
+                        <%= user.id %>
+                    </td>
+                    <td><%= user.nome %></td>
+                    <td><% if (user.administrador) { %>
+                        Sim
+                        <% } else { %>
+                        Não
+                        <% }; %></td>
+                    <td><%= user.data_criacao != null ? user.data_criacao
                                                         .toISOString()
                                                         .replace(/T/, ' ')
                                                         .replace(/\..+/, '') 
                                                         : "N/A" %>
-                </td>
-                <td><%= user.ultimo_login != null ? user.ultimo_login
+                    </td>
+                    <td><%= user.ultimo_login != null ? user.ultimo_login
                                                         .toISOString()
                                                         .replace(/T/, ' ')
                                                         .replace(/\..+/, '') 
                                                         : "N/A" %>
-                </td>
-                <td>
-                    <div class="table-button-container">
-                        <button class="table-button button-red"
-                        onclick="toggleEditModal('<%= JSON.stringify(user) %>');">✎</button>
+                    </td>
+                    <td>
+                        <div class="table-button-container">
+                            <button class="table-button button-red"
+                                onclick="toggleEditModal('<%= JSON.stringify(user) %>');">✎</button>
 
-                        <button class="table-button button-red"
-                            onclick="toggleRemoveModal('<%= user.id %>');">✗</button>
+                            <button class="table-button button-red"
+                                onclick="toggleRemoveModal('<%= user.id %>');">✗</button>
 
-                    </div>
-                </td>
-            </tr>
-            <% }); %>
-        </table>
-        <%- include('../partials/remove-user-modal'); %>
-        <%- include('../partials/edit-user-modal'); %>
+                        </div>
+                    </td>
+                </tr>
+                <% }); %>
+            </table>
+        </div>
+        <%- include('../partials/user-modal-remove'); %>
+        <%- include('../partials/user-modal-edit'); %>
+        <%- include('../partials/user-modal-add'); %>
+    </div>
     </div>
 </body>
 

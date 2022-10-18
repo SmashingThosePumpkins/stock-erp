@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt">
 <%- include('../partials/head'); %>
+
 <body class="wrapper">
     <%- include('../partials/nav'); %>
     <div class="content-layout">
-        <%- include('../partials/header'); %>
-       PAGINA CLEINTESS
+        <%- include('../partials/header', {"page": "Clientes"}); %>
+        <div class="tabs-div">
+            <button class="search-button pretty-button" onclick="toggleSearchClient()">🔍 Buscar cliente</button>
+            <button class="add-button pretty-button" onclick="toggleAddModal()">+ Adicionar cliente</button>
+        </div>
+        <hr class="tab-leaner" />
+        <div class="light-bordered-container" style="overflow-y: auto; height: 50vh;">
+            <table class="standard-table">
+                <tr>
+                    <th>ID</th>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th width="25"> </th>
+                    <th width="50"> </th>
+                </tr>
+                <% clients.forEach(client => { %>
+                <tr>
+                    <td><%= client.id %></td>
+                    <td><%= client.nome %></td>
+                    <td><%= client.cpf%></td>
+                    <td><%= client.telefone %></td>
+                    <td>
+                        <div class="table-button-container">
+                            <button class="table-button"
+                                onclick="toggleEditModal('<%= JSON.stringify(client) %>');">🕑</button>
+                    </td>
+                    <td>
+                        <div class="table-button-container">
+                            <button class="table-button button-red"
+                                onclick="toggleEditModal('<%= JSON.stringify(client) %>');">✎</button>
+
+                            <button class="table-button button-red"
+                                onclick="toggleRemoveModal('<%= client.id %>');">✗</button>
+
+                        </div>
+                    </td>
+                </tr>
+                <% }); %>
+            </table>
+        </div>
+        
+    </div>
     </div>
 </body>
+
 </html>
