@@ -21,9 +21,9 @@ CREATE TABLE perfil_cliente (
 CREATE TABLE perfil_peca (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     valor FLOAT,
+    descricao VARCHAR(200),
     setor VARCHAR(1),
-    prateleira INTEGER(30),
-    descricao VARCHAR(200)
+    prateleira INTEGER(30)
 );
 
 CREATE TABLE movimento_peca (
@@ -47,15 +47,15 @@ INSERT INTO usuario VALUES
     (null, "LeUserArio", "1234", false, NOW(), null);
     
 INSERT INTO perfil_cliente VALUES
-    (null, "20303479817", "Kauê Cauê Carlos Melo", "6629940374"),
-    (null, "01060414015", "Hugo Marcos Vinicius Thales Martins", "61986789520"),
-    (null, "02049545681", "Francisco Thiago Miguel Moraes", "92989454962"),
-    (null, "38115200670", "Iago Fernando Felipe Barros", "61985675232"),
-    (null, "15932132124", "Vitor Cauã Hugo Figueiredo", "21998352862"),
-    (null, "40808009591", "Rua Manoel Fernandes de Carvalho", "83998660366"),
-    (null, "13358625524", "Cláudio Caio Monteiro", "71992825961"),
-    (null, "57881419580", "Igor Renato Castro", "533867223"),
-    (null, "25349449168", "Pedro Ricardo Gustavo Rezende", "69982193853");
+    (null, "20303479817", "Kauê Cauê Carlos Melo", "1429940374"),
+    (null, "01060414015", "Hugo Marcos Vinicius Thales Martins", "14986789520"),
+    (null, "02049545681", "Francisco Thiago Miguel Moraes", "14989454962"),
+    (null, "38115200670", "Iago Fernando Felipe Barros", "11985675232"),
+    (null, "15932132124", "Vitor Cauã Hugo Figueiredo", "14998352862"),
+    (null, "40808009591", "Rua Manoel Fernandes de Carvalho", "14998660366"),
+    (null, "13358625524", "Cláudio Caio Monteiro", "11992825961"),
+    (null, "57881419580", "Igor Renato Castro", "1493867223"),
+    (null, "25349449168", "Pedro Ricardo Gustavo Rezende", "11982193853");
 
 INSERT INTO perfil_peca VALUES
     (null, 65.0, "cilindro roda traseira palio", "C",1),
