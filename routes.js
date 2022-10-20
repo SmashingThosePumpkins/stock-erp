@@ -1,5 +1,6 @@
 const express = require('express');
-const repository = require('./repository');
+const userRepository = require('./repository/user-repository');
+const clientRepository = require('./repository/client-repository');
 var router = express.Router();
 
 router.get("/", function (req, res) {
@@ -7,7 +8,7 @@ router.get("/", function (req, res) {
 })
 
 router.get("/clients", function (req, res) {
-    repository.findAllClients().then(result => {
+    clientRepository.findAllClients().then(result => {
         res.render("pages/clients", {
             clients: result[0]
         });
@@ -15,7 +16,22 @@ router.get("/clients", function (req, res) {
 })
 
 router.get("/history", function (req, res) {
-    res.render("pages/history");
+    var id = req.query.userid;
+    if (id) {
+        historyRepository.findAllHistoryById(id).then(result => {
+            res.render("pages/history", {
+                items: result[0],
+                shouldReturnToUsers: true
+            });
+        });
+    }
+
+    historyRepository.findAllHistory().then(result => {
+        res.render("pages/history", {
+            items: result[0],
+            shouldReturnToUsers: false
+        });
+    });
 })
 
 router.get("/products", function (req, res) {
@@ -23,7 +39,7 @@ router.get("/products", function (req, res) {
 })
 
 router.get("/users", async function (req, res) {
-    repository.findAllUsers().then(result => {
+    userRepository.findAllUsers().then(result => {
         res.render("pages/users", {
             users: result[0]
         });
@@ -31,20 +47,20 @@ router.get("/users", async function (req, res) {
 })
 
 router.post("/edit/user", async function (req, res) {
-    repository.alterUser(req.body).then(result => {
+    userRepository.alterUser(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
     });
 })
 
 router.post("/add/user", async function (req, res) {
-    repository.addUser(req.body).then(result => {
+    userRepository.addUser(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
     });
 })
 
 router.get("/remove/user", async function (req, res) {
     var id = req.query.id;
-    repository.deleteUser(id).then(result => {
+    userRepository.deleteUser(id).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
     });
 })

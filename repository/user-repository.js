@@ -55,11 +55,5 @@ module.exports = {
         console.log(query);
         await pool.query(query);
         return 100;
-    },
-
-    findAllClients: async function () {
-        return pool.query(
-            "SELECT * FROM perfil_cliente"
-        );
-    },
+    }
 };
