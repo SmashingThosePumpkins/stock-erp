@@ -11,7 +11,7 @@
     --tangerine: #f18805ff;
     --flame: #d95d39ff;
     --oxford-blue: #0e1428ff;
-    --morning-blue: #7b9e89ff;
+    --morning-blue: #989fb5ff;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -299,32 +299,41 @@ p {
     background-color: var(--morning-blue);
 }
 
-.add-button {
+.tab-button {
     font-size: 0.9em;
     border-radius: 10px 10px 0px 0px;
     border-bottom-width: 0px;
+}
+
+.tab-button > span {
+    transition-duration: 0.4s;
+}
+
+.tab-button:hover {
+    transform: none;
+}
+
+.tab-button:hover > span {
+    transition-duration: 0.4s;
+    margin: 10px;
+}
+
+.add-button {
     background-color: var(--tangerine);
 }
 
 .add-button:hover,
     .add-button:focus {
-transform: none;
-background-color: var(--marigold);    
-
+    background-color: var(--marigold);    
 }
 
 .search-button {
-    font-size: 0.9em;
-    border-radius: 10px 10px 0px 0px;
-    border-bottom-width: 0px;
     background-color: var(--morning-blue);
 }
 
 .search-button:hover,
 .search-button:focus {
-transform: none;
-background-color: #999;   
-
+background-color: #bbb;   
 }
 
 .popup-position {
