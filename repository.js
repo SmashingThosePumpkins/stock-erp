@@ -26,17 +26,15 @@ module.exports = {
         let id = user.id;
         if (!id) return 400;
 
-        let username = "";
-        if (user.nome) username = `nome = "${user.nome}", `;
+        let params = Array(3);
 
-        let password = "";
-        if (user.senha) password = `senha = "${user.senha}", `;
+        if (user.nome) params.push(`nome = "${user.nome}"`);
+        if (user.senha) params.push(`senha = "${user.senha}"`);
+        params.push(`administrador = ${user.administrador ? 1 : 0}`);
 
-        let admin = "";
-        if (user.administrador) admin = `administrador = 1 `;
-        else admin = `administrador = 0 `;
+        if (params.every((p) => !p)) return 100;
 
-        let query = "UPDATE usuario SET ".concat(username, password, admin, `WHERE usuario.id = ${id};`);
+        let query = `UPDATE usuario SET ${params.filter(Boolean).join(", ")} WHERE usuario.id = ${id};`;
         await pool.query(query);
         return 100;
     },
@@ -46,7 +44,7 @@ module.exports = {
         return 100;
     },
     addUser: async function (user) {
-        if (!user.nome || !user.senha || !user.administrador) return 400;
+        if (!user.nome || !user.senha) return 400;
 
         let admin = 0;
         if (user.administrador) admin = 1;
@@ -62,4 +60,33 @@ module.exports = {
             "SELECT * FROM perfil_cliente"
         );
     },
+    addClient: async function (client) {
+        if (!client.nome || !client.cpf || !client.telefone) return 400;
+
+        let query = `INSERT INTO perfil_cliente VALUES (null, "${client.cpf}", "${client.nome}", "${client.telefone}");`;
+        console.log(query);
+        await pool.query(query);
+        return 100;
+    },
+    alterClient: async function (client) {
+        let id = client.id;
+        if (!id) return 400;
+
+        let params = Array(3);
+
+        if (client.nome) params.push(`nome = "${client.nome}"`);
+        if (client.cpf) params.push(`cpf = "${client.cpf}"`);
+        if (client.telefone) params.push(`telefone = "${client.telefone}"`);
+
+        if (params.every((p) => !p)) return 100;
+
+        let query = `UPDATE perfil_cliente SET ${params.filter(Boolean).join(", ")} WHERE perfil_cliente.id = ${id};`;
+        await pool.query(query);
+        return 100;
+    },
+    deleteClient: async function (id) {
+        if (!id) return 400;
+        await pool.query("DELETE FROM perfil_cliente WHERE perfil_cliente.id = ?;", id);
+        return 100;
+    }
 };

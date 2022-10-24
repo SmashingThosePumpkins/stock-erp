@@ -200,7 +200,8 @@ p {
 }
 
 .form input[type=text],
-.form input[type=password] {
+.form input[type=password],
+.form input[type=tel] {
     font-size: 0.85em;
     margin-bottom: 0.8em;
     margin-top: 0.3em;
@@ -211,6 +212,7 @@ p {
 }
 
 .form input[type=text]:focus,
+.form input[type=password]:focus,
 .form input[type=password]:focus {
     transition-duration: 0.1s;
     background-color: #ddd;
@@ -344,7 +346,8 @@ background-color: #999;
     padding: 20px;
     border-radius: 10px;
     width: 300px;
-    margin: 70px auto;
+    height: fit-content;
+    margin: 50px auto;
 }
 
 .modal-show {

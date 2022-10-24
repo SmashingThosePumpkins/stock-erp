@@ -36,9 +36,21 @@ router.post("/edit/user", async function (req, res) {
     });
 })
 
+router.post("/edit/client", async function (req, res) {
+    repository.alterClient(req.body).then(result => {
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
+    });
+})
+
 router.post("/add/user", async function (req, res) {
     repository.addUser(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
+    });
+})
+
+router.post("/add/client", async function (req, res) {
+    repository.addClient(req.body).then(result => {
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
     });
 })
 
@@ -46,6 +58,13 @@ router.get("/remove/user", async function (req, res) {
     var id = req.query.id;
     repository.deleteUser(id).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
+    });
+})
+
+router.get("/remove/client", async function (req, res) {
+    var id = req.query.id;
+    repository.deleteClient(id).then(result => {
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
     });
 })
 

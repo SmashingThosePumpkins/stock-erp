@@ -7,9 +7,9 @@
         <form class="form" action="/edit/user" method="post" enctype="application/json">
             <input type="text" name="id" id="edit-user-id" hidden>
             <label>Nome de usuário:</label> <br>
-            <input type="text" name="nome" id="edit-user-name"> <br>
+            <input type="text" name="nome" id="edit-user-name" maxlength="16"> <br>
             <label>Senha:</label> <br>
-            <input type="password" name="senha" id="edit-user-password"> <br>
+            <input type="password" name="senha" id="edit-user-password" maxlength="16"> <br>
             <label class="checkbox">
                 <input type="checkbox" name="administrador" id="edit-user-admin">
                 <span>Administrador</span>

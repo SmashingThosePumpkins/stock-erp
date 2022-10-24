@@ -4,9 +4,9 @@
         <form class="form" action="/add/user" method="post" enctype="application/json">
             <input type="text" name="id" id="add-user-id" hidden>
             <label>Nome de usuário:</label> <br>
-            <input type="text" name="nome" id="add-user-name"> <br>
+            <input type="text" name="nome" id="add-user-name" maxlength="16"> <br>
             <label>Senha:</label> <br>
-            <input type="password" name="senha" id="add-user-password"> <br>
+            <input type="password" name="senha" id="add-user-password" maxlength="16"> <br>
             <label class="checkbox">
                 <input type="checkbox" name="administrador" id="add-user-admin">
                 <span>Administrador</span>

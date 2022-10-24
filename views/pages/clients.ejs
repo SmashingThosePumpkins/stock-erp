@@ -15,8 +15,8 @@
             <table class="standard-table">
                 <tr>
                     <th>ID</th>
-                    <th>CPF</th>
                     <th>Nome</th>
+                    <th>CPF</th>
                     <th>Telefone</th>
                     <th width="25"> </th>
                     <th width="50"> </th>
@@ -25,8 +25,8 @@
                 <tr>
                     <td><%= client.id %></td>
                     <td><%= client.nome %></td>
-                    <td><%= client.cpf%></td>
-                    <td><%= client.telefone %></td>
+                    <td><%= client.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"); %></td>
+                    <td><%= client.telefone.replace(/\D/g,"").replace(/^(\d{2})(\d)/g,"($1) $2").replace(/(\d)(\d{4})$/,"$1-$2"); %></td>
                     <td>
                         <div class="table-button-container">
                             <button class="table-button"
@@ -46,9 +46,10 @@
                 <% }); %>
             </table>
         </div>
-        
-    </div>
-    </div>
+        <%- include('../partials/clients-modal-remove'); %>
+        <%- include('../partials/clients-modal-edit'); %>
+        <%- include('../partials/clients-modal-add'); %>
+    </div> 
 </body>
 
 </html>
