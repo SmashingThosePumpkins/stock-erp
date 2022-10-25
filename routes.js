@@ -1,5 +1,6 @@
 const express = require('express');
 const userRepository = require('./repository/user-repository');
+const historyRepository = require('./repository/history-repository')
 const clientRepository = require('./repository/client-repository');
 var router = express.Router();
 
@@ -16,22 +17,24 @@ router.get("/clients", function (req, res) {
 })
 
 router.get("/history", function (req, res) {
-    var id = req.query.userid;
-    if (id) {
+    var id = req.query.client;
+    if (!id) {
+        historyRepository.findAllHistory().then(result => {
+            res.render("pages/history", {
+                items: result[0],
+                shouldReturnToUsers: false
+            });
+        });
+        return;
+    }
+    clientRepository.findClientById(id).then((clientobj) =>
         historyRepository.findAllHistoryById(id).then(result => {
             res.render("pages/history", {
                 items: result[0],
+                cliente: clientobj[0][0],
                 shouldReturnToUsers: true
             });
-        });
-    }
-
-    historyRepository.findAllHistory().then(result => {
-        res.render("pages/history", {
-            items: result[0],
-            shouldReturnToUsers: false
-        });
-    });
+        }));
 })
 
 router.get("/products", function (req, res) {
@@ -53,7 +56,7 @@ router.post("/edit/user", async function (req, res) {
 })
 
 router.post("/edit/client", async function (req, res) {
-    repository.alterClient(req.body).then(result => {
+    clientRepository.alterClient(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
     });
 })
@@ -65,7 +68,7 @@ router.post("/add/user", async function (req, res) {
 })
 
 router.post("/add/client", async function (req, res) {
-    repository.addClient(req.body).then(result => {
+    clientRepository.addClient(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
     });
 })
@@ -79,7 +82,7 @@ router.get("/remove/user", async function (req, res) {
 
 router.get("/remove/client", async function (req, res) {
     var id = req.query.id;
-    repository.deleteClient(id).then(result => {
+    clientRepository.deleteClient(id).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
     });
 })

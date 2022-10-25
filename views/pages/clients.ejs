@@ -29,8 +29,7 @@
                     <td><%= client.telefone.replace(/\D/g,"").replace(/^(\d{2})(\d)/g,"($1) $2").replace(/(\d)(\d{4})$/,"$1-$2"); %></td>
                     <td>
                         <div class="table-button-container">
-                            <button class="table-button"
-                                onclick="toggleEditModal('<%= JSON.stringify(client) %>');">🕑</button>
+                            <a href="/history?client=<%= client.id %> "><button class="table-button">🕑</button></a>
                     </td>
                     <td>
                         <div class="table-button-container">
