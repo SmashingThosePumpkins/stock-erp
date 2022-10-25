@@ -7,7 +7,7 @@
     <div class="content-layout">
         <%- include('../partials/header', {"page": "Clientes"}); %>
         <div class="tabs-div">
-            <button class="search-button pretty-button tab-button" onclick="toggleSearchClient()"><span>🔍 Buscar cliente</span></button>
+            <button class="search-button pretty-button tab-button" onclick="toggleSearchModal()"><span>🔍 Buscar cliente</span></button>
             <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>+ Adicionar cliente</span></button>
         </div>
         <hr class="tab-leaner" />
@@ -45,6 +45,7 @@
                 <% }); %>
             </table>
         </div>
+        <%- include('../partials/clients-modal-search'); %>
         <%- include('../partials/clients-modal-remove'); %>
         <%- include('../partials/clients-modal-edit'); %>
         <%- include('../partials/clients-modal-add'); %>

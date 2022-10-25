@@ -87,4 +87,28 @@ router.get("/remove/client", async function (req, res) {
     });
 })
 
+router.post("/search/client", async function (req, res) {
+    let cpf = req.body.cpf;
+    if (cpf && cpf.length == 11) {
+        clientRepository.findClientByCpf(cpf).then(result => {
+            res.render("pages/clients", {
+                clients: result[0]
+            });
+        });
+        return;
+    }
+
+    let nome = req.body.nome;
+    if (nome) {
+        clientRepository.findClientsByName(nome).then(result => {
+            res.render("pages/clients", {
+                clients: result
+            });
+        });
+        return;
+    }
+
+    res.status(404).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
+})
+
 module.exports = router;

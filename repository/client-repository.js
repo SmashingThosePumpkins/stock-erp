@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const mysql = require('mysql2');
+const Fuse = require('fuse.js')
 
 dotenv.config();
 
@@ -21,6 +22,29 @@ module.exports = {
         return pool.query(
             "SELECT * FROM perfil_cliente WHERE perfil_cliente.id = ?", id
         );
+    },
+    findClientByCpf: async function (cpf) {
+        return pool.query(
+            "SELECT * FROM perfil_cliente WHERE perfil_cliente.cpf = ?", cpf
+        );
+    },
+    findClientsByName: async function (nome) {
+        var clients = await pool.query(
+            "SELECT * FROM perfil_cliente;"
+        );
+
+        var options = {
+            includeScore: true,
+            keys: ['nome']
+        }
+
+        var fuse = new Fuse(clients[0], options)
+        let result = fuse.search(nome);
+
+        let clientList = Array();
+        result.forEach(result => clientList.push(result.item));
+        console.log(clientList);
+        return clientList;
     },
     addClient: async function (client) {
         if (!client.nome || !client.cpf || !client.telefone) return 400;
