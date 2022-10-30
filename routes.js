@@ -2,6 +2,7 @@ const express = require('express');
 const userRepository = require('./repository/user-repository');
 const historyRepository = require('./repository/history-repository')
 const clientRepository = require('./repository/client-repository');
+const productRepository = require('./repository/product-repository');
 var router = express.Router();
 
 router.get("/", function (req, res) {
@@ -38,7 +39,11 @@ router.get("/history", function (req, res) {
 })
 
 router.get("/products", function (req, res) {
-    res.render("pages/products");
+    productRepository.findAllProducts().then(result => {
+        res.render("pages/products", {
+            products: result[0]
+        });
+    });
 })
 
 router.get("/users", async function (req, res) {
@@ -61,6 +66,12 @@ router.post("/edit/client", async function (req, res) {
     });
 })
 
+router.post("/edit/product", async function (req, res) {
+    productRepository.alterProduct(req.body).then(result => {
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
+    });
+})
+
 router.post("/add/user", async function (req, res) {
     userRepository.addUser(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/users`);
@@ -70,6 +81,12 @@ router.post("/add/user", async function (req, res) {
 router.post("/add/client", async function (req, res) {
     clientRepository.addClient(req.body).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
+    });
+})
+
+router.post("/add/product", async function (req, res) {
+    productRepository.addProduct(req.body).then(result => {
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
     });
 })
 
@@ -84,6 +101,13 @@ router.get("/remove/client", async function (req, res) {
     var id = req.query.id;
     clientRepository.deleteClient(id).then(result => {
         res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
+    });
+})
+
+router.get("/remove/product", async function (req, res) {
+    var id = req.query.id;
+    productRepository.deleteProduct(id).then(result => {
+        res.status(result).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
     });
 })
 
@@ -109,6 +133,31 @@ router.post("/search/client", async function (req, res) {
     }
 
     res.status(404).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/clients`);
+})
+
+router.post("/search/product", async function (req, res) {
+    let setor = req.body.setor;
+    let prateleira = req.body.prateleira;
+    if (setor || prateleira) {
+        productRepository.findProductsByLocalization(setor, prateleira).then(result => {
+            res.render("pages/products", {
+                products: result[0]
+            });
+        });
+        return;
+    }
+
+    let descricao = req.body.descricao;
+    if (descricao) {
+        productRepository.findProductsByDescription(descricao).then(result => {
+            res.render("pages/products", {
+                products: result
+            });
+        });
+        return;
+    }
+
+    res.status(404).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
 })
 
 module.exports = router;

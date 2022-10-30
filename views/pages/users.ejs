@@ -7,13 +7,13 @@
     <div class="content-layout">
         <%- include('../partials/header', {"page": "Usuários"}); %>
         <div class="tabs-div">
-            <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>+ Adicionar usuário</span></button>
+            <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>👤 Adicionar usuário</span></button>
         </div>
         <hr class="tab-leaner" />
         <div class="light-bordered-container" style="overflow-y: auto; height: 50vh;">
             <table class="standard-table">
                 <tr>
-                    <th>ID</th>
+                    <th width="50">ID</th>
                     <th>Nome do usuário</th>
                     <th>Administrador</th>
                     <th>Data de criação</th>
@@ -57,9 +57,9 @@
                 <% }); %>
             </table>
         </div>
-        <%- include('../partials/user-modal-remove'); %>
-        <%- include('../partials/user-modal-edit'); %>
-        <%- include('../partials/user-modal-add'); %>
+        <%- include('../partials/modal/users/remove'); %>
+        <%- include('../partials/modal/users/edit'); %>
+        <%- include('../partials/modal/users/add'); %>
     </div>
 </body>
 

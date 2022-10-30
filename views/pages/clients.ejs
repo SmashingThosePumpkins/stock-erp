@@ -8,13 +8,13 @@
         <%- include('../partials/header', {"page": "Clientes"}); %>
         <div class="tabs-div">
             <button class="search-button pretty-button tab-button" onclick="toggleSearchModal()"><span>🔍 Buscar cliente</span></button>
-            <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>+ Adicionar cliente</span></button>
+            <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>👤 Adicionar cliente</span></button>
         </div>
         <hr class="tab-leaner" />
         <div class="light-bordered-container" style="overflow-y: auto; height: 50vh;">
             <table class="standard-table">
                 <tr>
-                    <th>ID</th>
+                    <th width="50">ID</th>
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>Telefone</th>
@@ -45,10 +45,10 @@
                 <% }); %>
             </table>
         </div>
-        <%- include('../partials/clients-modal-search'); %>
-        <%- include('../partials/clients-modal-remove'); %>
-        <%- include('../partials/clients-modal-edit'); %>
-        <%- include('../partials/clients-modal-add'); %>
+        <%- include('../partials/modal/clients/search'); %>
+        <%- include('../partials/modal/clients/remove'); %>
+        <%- include('../partials/modal/clients/edit'); %>
+        <%- include('../partials/modal/clients/add'); %>
     </div> 
 </body>
 

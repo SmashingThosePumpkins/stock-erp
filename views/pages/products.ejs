@@ -1,19 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt">
 <%- include('../partials/head'); %>
+
 <body class="wrapper">
     <%- include('../partials/nav'); %>
     <div class="content-layout">
         <%- include('../partials/header', {"page": "Produtos"}); %>
+
+        <div class="tabs-div">
+            <button class="search-button pretty-button tab-button" onclick="toggleSearchModal()"><span>🔍 Buscar
+                    produto</span></button>
+            <button class="add-button pretty-button tab-button" onclick="toggleVendaModal()"><span>🏠 Nova
+                    venda</span></button>
+            <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>🛒 Adicionar
+                    produto</span></button>
+
+        </div>
+        <hr class="tab-leaner" />
+        <div class="light-bordered-container" style="overflow-y: auto; height: 50vh;">
+            <table class="standard-table">
+                <tr>
+                    <th width="50">ID</th>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    <th width="50">Setor</th>
+                    <th width="50">Prateleira</th>
+                    <th width="50"> </th>
+                </tr>
+                <% products.forEach(produto => { %>
+                <tr>
+                    <td> <%= produto.id %> </td>
+                    <td><%= produto.descricao %></td>
+                    <td><%=  "R$ " + (Math.round(produto.valor * 100) / 100).toFixed(2) %></td>
+                    <td><%=  produto.setor %></td>
+                    <td><%=  produto.prateleira %> </td>
+                    <td>
+                        <div class="table-button-container">
+                            <button class="table-button button-red"
+                                onclick="toggleEditModal('<%= JSON.stringify(produto) %>');">✎</button>
+
+                            <button class="table-button button-red"
+                                onclick="toggleRemoveModal('<%= produto.id %>');">✗</button>
+                        </div>
+                    </td>
+                </tr>
+                <% }); %>
+            </table>
+        </div>
+        <%- include('../partials/modal/products/remove'); %>
+        <%- include('../partials/modal/products/edit'); %>
+        <%- include('../partials/modal/products/add'); %>
+        <%- include('../partials/modal/products/search'); %>
+
         Ideias para a pagina produtos: <br>
         - tabela simples com os itens da tabela de produtos<br>
         - opção de adicionar um item novo (administrador)<br>
         - opção de criar venda<br>&nbsp;&nbsp;&nbsp;&nbsp;
         - modal<br>&nbsp;&nbsp;&nbsp;&nbsp;
-        - esse modal será separado em duas colunas, uma com itens de uma pesquisa e uma com um "carrinho de compras" + a inserção do cliente (com aquele esquema de validar cpf)<br>&nbsp;&nbsp;&nbsp;&nbsp;
+        - esse modal será separado em duas colunas, uma com itens de uma pesquisa e uma com um "carrinho de compras" + a
+        inserção do cliente (com aquele esquema de validar cpf)<br>&nbsp;&nbsp;&nbsp;&nbsp;
         - na aba de itens de pesquisa, será possível procurar por itens do banco de dados<br>&nbsp;&nbsp;&nbsp;&nbsp;
-        - nos itens do carrinho de compras, será inserido o preço de cada item, e removê-lo do carrinho<br>&nbsp;&nbsp;&nbsp;&nbsp;
+        - nos itens do carrinho de compras, será inserido o preço de cada item, e removê-lo do
+        carrinho<br>&nbsp;&nbsp;&nbsp;&nbsp;
         - ao clicar em "realizar venda", os dados serão validados e a venda será realizada
     </div>
 </body>
+
 </html>

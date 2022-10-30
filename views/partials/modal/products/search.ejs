@@ -1,0 +1,40 @@
+<div class="popup-position popup-wrapper" id="search-modal">
+    <div id="popup-container">
+        <h1>Buscar produto</h1>
+        <form class="form" action="/search/product" method="post" enctype="application/json">
+            <input type="text" name="id" hidden>
+            <label>Buscar por descrição:</label> <br>
+            <input type="text" name="descricao" maxlength="50"> <br>
+            <label>Buscar por localização:</label> <br>
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 20%;">
+                    <label style="color: #444; font-size:0.9em">Setor:</label> <br>
+                    <input type="text" name="setor" id="s-setor"
+                        style="margin-bottom: 1.2em; width: 45%; text-align:center;" maxlength="1"
+                        onchange="checkPrateleiraDisable()">
+                </div>
+                <div style="width: 20%;">
+                    <label style="color: #444; font-size:0.9em">Prateleira:</label> <br>
+                    <input type="number" name="prateleira" id="s-prateleira"
+                        style="margin-bottom: 1.2em; width: 45%; text-align:center;" min="1" max="1000" disabled>
+                </div>
+            </div>
+            <button class="pretty-button" type="button" onclick="toggleSearchModal()">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Buscar">
+        </form>
+    </div>
+
+    <script>
+        function toggleSearchModal() {
+            document.getElementById('search-modal').classList.toggle("modal-show");
+        }
+
+        function checkPrateleiraDisable() {
+            if (document.getElementById('s-setor').value) {
+                document.getElementById('s-prateleira').disabled = false;
+                return;
+            }
+            document.getElementById('s-prateleira').disabled = true;
+        }
+    </script>
+</div>

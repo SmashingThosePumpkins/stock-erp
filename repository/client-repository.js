@@ -1,21 +1,10 @@
-const dotenv = require('dotenv');
-const mysql = require('mysql2');
 const Fuse = require('fuse.js')
-
-dotenv.config();
-
-const pool = mysql.createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    timezone: 'Z'
-}).promise();
+const pool = require("./dbconfig.js").pool;
 
 module.exports = {
     findAllClients: async function () {
         return pool.query(
-            "SELECT * FROM perfil_cliente"
+            "SELECT * FROM perfil_cliente ORDER BY perfil_cliente.nome"
         );
     },
     findClientById: async function (id) {

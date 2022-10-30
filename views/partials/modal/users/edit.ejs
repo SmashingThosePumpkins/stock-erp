@@ -1,0 +1,39 @@
+<div class="popup-position popup-wrapper" id="edit-modal">
+    <div id="popup-container">
+        <h2>Editar usuário</h2>
+        <p>
+            Editando usuário de ID [<label id="e-id-label"></label>]
+        </p>
+        <form class="form" action="/edit/user" method="post" enctype="application/json">
+            <input type="text" name="id" id="e-id" hidden>
+            <label>Nome de usuário:</label> <br>
+            <input type="text" name="nome" id="e-name" maxlength="16"> <br>
+            <label>Senha:</label> <br>
+            <input type="password" name="senha" id="e-password" maxlength="16"> <br>
+            <label class="checkbox">
+                <input type="checkbox" name="administrador" id="e-admin">
+                <span>Administrador</span>
+            </label><br>
+            <button class="pretty-button" type="button" id="cancel" onclick="toggleEditModal(0)">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Salvar alterações">
+        </form>
+    </div>
+
+    <script>
+        function toggleEditModal(j) {
+            let user = JSON.parse(j);
+            if (user.id) {
+                document.getElementById('e-id').value = user.id;
+                document.getElementById('e-id-label').textContent = user.id;
+            }
+
+            if (user.nome) document.getElementById('e-name').value = user.nome;
+
+            if (user.senha) document.getElementById('e-password').value = user.senha;
+
+            if (user.administrador) document.getElementById('e-admin').checked = true;
+
+            document.getElementById('edit-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

@@ -1,0 +1,34 @@
+<div class="popup-position popup-wrapper" id="edit-modal">
+    <div id="popup-container">
+        <h2>Editar usuário</h2>
+        <p>
+            Editando usuário de ID [<label id="e-id-label"></label>]
+        </p>
+        <form class="form" action="/edit/client" method="post" enctype="application/json">
+            <input type="text" name="id" id="e-id" hidden>
+            <label>Nome do cliente:</label> <br>
+            <input type="text" name="nome" id="e-name" maxlength="50"> <br>
+            <label>CPF:</label> <br>
+            <input type="text" name="cpf" id="e-cpf" maxlength="11"> <br>
+            <label>Telefone:</label> <br>
+            <input type="tel" name="telefone" id="e-telefone" style="margin-bottom: 1.2em;" maxlength="16"> <br>
+            <button class="pretty-button" type="button" id="cancel" onclick="toggleEditModal('{}')">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Salvar alterações">
+        </form>
+    </div>
+
+    <script>
+        function toggleEditModal(j) {
+            let client = JSON.parse(j);
+            if (client.id) {
+                document.getElementById('e-id').value = client.id;
+                document.getElementById('e-id-label').textContent = client.id;
+            }
+            if (client.nome) document.getElementById('e-name').value = client.nome;
+            if (client.cpf) document.getElementById('e-cpf').value = client.cpf;
+            if (client.telefone) document.getElementById('e-telefone').value = client.telefone;
+
+            document.getElementById('edit-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

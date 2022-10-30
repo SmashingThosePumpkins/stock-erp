@@ -1,0 +1,27 @@
+<div class="popup-position popup-wrapper" id="add-modal">
+    <div id="popup-container">
+        <h2>Adicionar novo usuário</h2>
+        <form class="form" action="/add/client" method="post" enctype="application/json">
+            <input type="text" name="id" id="a-id" hidden>
+            <label>Nome do cliente:</label> <br>
+            <input type="text" name="nome" id="a-name" maxlength="50"> <br>
+            <label>CPF:</label> <br>
+            <input type="text" name="cpf" id="a-cpf" maxlength="11"> <br>
+            <label>Telefone:</label> <br>
+            <input type="tel" name="telefone" id="a-telefone" style="margin-bottom: 1.2em;" maxlength="16"> <br>
+            <button class="pretty-button" type="button" id="cancel" onclick="toggleAddModal()">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Adicionar usuário">
+        </form>
+    </div>
+
+    <script>
+        function toggleAddModal() {
+            document.getElementById('a-id').value = "";
+            document.getElementById('a-name').value =  "";
+            document.getElementById('a-cpf').value =  "";
+            document.getElementById('a-telefone').value =  "";
+
+            document.getElementById('add-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

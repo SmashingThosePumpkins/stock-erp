@@ -1,0 +1,45 @@
+<div class="popup-position popup-wrapper" id="edit-modal">
+    <div id="popup-container">
+        <h2>Editar produto</h2>
+        <p>
+            Editando produto de ID [<label id="e-id-label"></label>]
+        </p>
+        <form class="form" action="/edit/product" method="post" enctype="application/json">
+            <input type="text" name="id" id="e-id" hidden>
+            <label>Descrição do produto:</label> <br>
+            <input type="text" name="descricao" id="e-descricao" maxlength="50"> <br>
+            <label>Valor:</label> <br>
+            <input type="number" name="valor" id="e-valor" min="0" max="10000" step="any"> <br>
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 20%;">
+                    <label>Setor:</label> <br>
+                    <input type="text" name="setor" id="e-setor" style="margin-bottom: 1.2em; width: 45%; text-align:center;"
+                        maxlength="1">
+                </div>
+                <div style="width: 20%;">
+                    <label>Prateleira:</label> <br>
+                    <input type="number" name="prateleira" id="e-prateleira" style="margin-bottom: 1.2em; width: 45%; text-align:center;"
+                        min="1" max="1000">
+                </div>
+            </div>
+            <button class="pretty-button" type="button" id="cancel" onclick="toggleEditModal('{}')">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Salvar alterações">
+        </form>
+    </div>
+
+    <script>
+        function toggleEditModal(j) {
+            let product = JSON.parse(j);
+            if (product.id) {
+                document.getElementById('e-id').value = product.id;
+                document.getElementById('e-id-label').textContent = product.id;
+            }
+            if (product.descricao) document.getElementById('e-descricao').value = product.descricao;
+            if (product.valor) document.getElementById('e-valor').value = product.valor;
+            if (product.setor) document.getElementById('e-setor').value = product.setor;
+            if (product.prateleira) document.getElementById('e-prateleira').value = product.prateleira;
+        
+            document.getElementById('edit-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

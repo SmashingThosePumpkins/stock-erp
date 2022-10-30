@@ -1,0 +1,20 @@
+<div class="popup-position popup-wrapper" id="search-modal">
+    <div id="popup-container">
+        <h1>Buscar cliente</h1>
+        <form class="form" action="/search/client" method="post" enctype="application/json">
+            <input type="text" name="id" hidden>
+            <label>Buscar por CPF:</label> <br>
+            <input type="text" name="cpf" maxlength="11"> <br>
+            <label>Buscar por nome:</label> <br>
+            <input type="text" name="nome" maxlength="50"> <br>
+            <button class="pretty-button" type="button" onclick="toggleSearchModal()">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Buscar">
+        </form>
+    </div>
+
+    <script>
+        function toggleSearchModal() {
+            document.getElementById('search-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

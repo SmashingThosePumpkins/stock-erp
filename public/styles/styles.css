@@ -201,7 +201,8 @@ p {
 
 .form input[type=text],
 .form input[type=password],
-.form input[type=tel] {
+.form input[type=tel],
+.form input[type=number] {
     font-size: 0.85em;
     margin-bottom: 0.8em;
     margin-top: 0.3em;
@@ -213,9 +214,14 @@ p {
 
 .form input[type=text]:focus,
 .form input[type=password]:focus,
-.form input[type=password]:focus {
+.form input[type=tel]:focus,
+.form input[type=number]:focus {
     transition-duration: 0.1s;
     background-color: #ddd;
+}
+
+.form input:disabled {
+    background-color: #aaa;
 }
 
 
