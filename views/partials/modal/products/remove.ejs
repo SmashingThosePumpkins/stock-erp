@@ -13,7 +13,7 @@
         function toggleRemoveModal(productId) {
             if (productId) {
                 document.getElementById('r-id-label').textContent = productId;
-                document.getElementById('r-submit').href="/remove/product?id="+productId; 
+                document.getElementById('r-submit').href="/products/remove?id="+productId; 
             }
             document.getElementById('remove-modal').classList.toggle("modal-show");
         }

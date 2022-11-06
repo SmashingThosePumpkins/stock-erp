@@ -23,4 +23,8 @@ var server = app.listen(process.env.SERVER_PORT, function () {
   console.log(`Servidor de pé! Rodando em ${host}:${port}`)
 });
 
-app.use(require("./routes"));
+app.use('/', require("./routes"));
+app.use('/users', require("./routes/users"));
+app.use('/history', require("./routes/history"));
+app.use('/clients', require("./routes/clients"));
+app.use('/products', require("./routes/products"));

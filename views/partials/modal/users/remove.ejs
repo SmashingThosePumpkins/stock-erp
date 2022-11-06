@@ -13,7 +13,7 @@
         function toggleRemoveModal(userid) {
             if (userid) {
                 document.getElementById('r-id-label').textContent = userid;
-                document.getElementById('r-submit').href="remove/user?id="+userid; 
+                document.getElementById('r-submit').href="/users/remove?id="+userid; 
             }
             document.getElementById('remove-modal').classList.toggle("modal-show");
         }

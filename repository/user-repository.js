@@ -7,9 +7,15 @@ module.exports = {
         );
     },
     findUserById: async function (id) {
+        if (!id) return;
         return pool.query(
             "SELECT * FROM usuario WHERE usuario.id = ?", id
         );
+    },
+    findUserByLogin: async function (user, pass) {
+        if (!user || !pass) return;     
+        let result = await pool.query(`SELECT * FROM usuario WHERE usuario.nome = '${user}' AND usuario.senha = '${pass}';`);
+        return result[0][0];
     },
     alterUser: async function (user) {
         let id = user.id;
@@ -42,5 +48,9 @@ module.exports = {
         console.log(query);
         await pool.query(query);
         return 100;
+    },
+    notifyLogin: async function(id) {
+        let query = `UPDATE usuario SET ultimo_login = ? WHERE usuario.id = ${id};`;
+        await pool.query(query, new Date());
     }
 };
