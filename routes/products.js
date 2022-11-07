@@ -1,12 +1,19 @@
 const express = require('express');
 var router = express.Router();
+const Login = require('../login')
 
 const productRepository = require('../repository/product-repository');
 
-router.get("/", function (req, res) {
+router.get("/", async function (req, res) {
+    let settings = await Login.check();
+    if (!settings) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
+        return;
+    }
     productRepository.findAllProducts().then(result => {
         res.render("pages/products", {
-            products: result[0]
+            products: result[0],
+            settings: settings[0]
         });
     });
 })

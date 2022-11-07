@@ -1,12 +1,19 @@
 const express = require('express');
 var router = express.Router();
+const Login = require('../login')
 
 const clientRepository = require('../repository/client-repository');
 
-router.get("/", function (req, res) {
+router.get("/", async function (req, res) {
+    let settings = await Login.check();
+    if (!settings) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
+        return;
+    }
     clientRepository.findAllClients().then(result => {
         res.render("pages/clients", {
-            clients: result[0]
+            clients: result[0],
+            settings: settings[0]
         });
     });
 })
