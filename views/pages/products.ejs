@@ -12,8 +12,8 @@
                     produto</span></button>
             <button class="add-button pretty-button tab-button" onclick="toggleVendaModal()"><span>🏠 Nova
                     venda</span></button>
-            <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>🛒 Adicionar
-                    produto</span></button>
+                    <% if (settings[0].administrador) { %> <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>🛒 Adicionar
+                    produto</span></button> <% } %> 
 
         </div>
         <hr class="tab-leaner" />
