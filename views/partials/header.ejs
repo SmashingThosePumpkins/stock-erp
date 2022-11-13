@@ -1,5 +1,13 @@
 <header class="header">
     <div class="content-header">
         <h1 class="page-title"><%= page %></h1>
+        <div class="current-user-div" style="display:flex; flex-direction: row;">
+            <img width="40" src="/images/user.png">
+
+            <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 10px;">
+                <%= settings[0].nome %><br>
+                <a style="text-decoration: none;" href="/signout">Sair</a>
+            </div>
+        </div>
     </div>
 </header>

@@ -93,6 +93,7 @@
 
 .content-header {
     display: flex;
+    flex-direction: row;
     height: 100%;
     align-items: center;
     margin: 0px 3vw 0px 3vw;
@@ -396,6 +397,7 @@ p {
 
 .page-title {
     font-size: xx-large;
+    flex:auto;
     vertical-align: middle;
 }
 

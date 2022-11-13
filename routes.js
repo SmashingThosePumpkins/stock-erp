@@ -26,4 +26,9 @@ router.get("/signin", function (req, res) {
     res.render("pages/signin");
 })
 
+router.get("/signout", async function (req, res) {
+    await Login.logOff();
+    res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/`);
+})
+
 module.exports = router;
