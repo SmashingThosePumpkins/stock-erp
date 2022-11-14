@@ -38,12 +38,19 @@ router.get("/remove", async function (req, res) {
 })
 
 router.post("/search", async function (req, res) {
+    let settings = await Login.check();
+    if (!settings) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
+        return;
+    }
+
     let setor = req.body.setor;
     let prateleira = req.body.prateleira;
     if (setor || prateleira) {
         productRepository.findProductsByLocalization(setor, prateleira).then(result => {
             res.render("pages/products", {
-                products: result[0]
+                products: result[0],
+                settings: settings[0]
             });
         });
         return;
@@ -53,7 +60,8 @@ router.post("/search", async function (req, res) {
     if (descricao) {
         productRepository.findProductsByDescription(descricao).then(result => {
             res.render("pages/products", {
-                products: result
+                products: result,
+                settings: settings[0]
             });
         });
         return;

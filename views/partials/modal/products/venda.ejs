@@ -1,0 +1,38 @@
+<div class="popup-position popup-wrapper" id="add-modal">
+    <div id="popup-container">
+        <h2>Adicionar novo produto</h2>
+        <form class="form" action="/products/add" method="post" enctype="application/json">
+            <input type="text" name="id" id="a-id" hidden>
+            <label>Descrição do produto:</label> <br>
+            <input type="text" name="descricao" id="a-descricao" maxlength="50"> <br>
+            <label>Valor:</label> <br>
+            <input type="number" name="valor" id="a-valor" min="0" max="10000" step="any"> <br>
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 20%;">
+                    <label>Setor:</label> <br>
+                    &nbsp;<input type="text" name="setor" id="a-setor" style="margin-bottom: 1.2em; width: 45%; text-align:center;"
+                        maxlength="1">
+                </div>
+                <div style="width: 20%;">
+                    <label>Prateleira:</label> <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="prateleira" id="a-prateleira" style="margin-bottom: 1.2em; width: 45%; text-align:center;"
+                        min="1" max="1000">
+                </div>
+            </div>
+            <button class="pretty-button" type="button" id="cancel" onclick="toggleAddModal()">Cancelar</button>
+            <input class="pretty-button submit-button" type="submit" value="Adicionar usuário">
+        </form>
+    </div>
+
+    <script>
+        function toggleVendaModal() {
+            document.getElementById('a-id').value = "";
+            document.getElementById('a-descricao').value = "";
+            document.getElementById('a-valor').value = "";
+            document.getElementById('a-setor').value = "";
+            document.getElementById('a-prateleira').value = "";
+
+            document.getElementById('add-modal').classList.toggle("modal-show");
+        }
+    </script>
+</div>

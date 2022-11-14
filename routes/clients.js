@@ -41,11 +41,18 @@ router.get("/remove", async function (req, res) {
 
 
 router.post("/search", async function (req, res) {
+    let settings = await Login.check();
+    if (!settings) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
+        return;
+    }
+
     let cpf = req.body.cpf;
     if (cpf && cpf.length == 11) {
         clientRepository.findClientByCpf(cpf).then(result => {
             res.render("pages/clients", {
-                clients: result[0]
+                clients: result[0], 
+                settings: settings[0]
             });
         });
         return;
@@ -55,7 +62,8 @@ router.post("/search", async function (req, res) {
     if (nome) {
         clientRepository.findClientsByName(nome).then(result => {
             res.render("pages/clients", {
-                clients: result
+                clients: result,
+                settings: settings[0]
             });
         });
         return;

@@ -12,8 +12,9 @@
                     produto</span></button>
             <button class="add-button pretty-button tab-button" onclick="toggleVendaModal()"><span>🏠 Nova
                     venda</span></button>
-                    <% if (settings[0].administrador) { %> <button class="add-button pretty-button tab-button" onclick="toggleAddModal()"><span>🛒 Adicionar
-                    produto</span></button> <% } %> 
+            <% if (settings[0].administrador) { %> <button class="add-button pretty-button tab-button"
+                onclick="toggleAddModal()"><span>🛒 Adicionar
+                    produto</span></button> <% } %>
 
         </div>
         <hr class="tab-leaner" />
@@ -29,7 +30,10 @@
                 </tr>
                 <% products.forEach(produto => { %>
                 <tr>
-                    <td> <%= produto.id %> </td>
+                    <td>
+                        <input type="checkbox" class="item-checkbox" data-id="<%= produto.id %>">
+                        <%= produto.id %>
+                    </td>
                     <td><%= produto.descricao %></td>
                     <td><%=  "R$ " + (Math.round(produto.valor * 100) / 100).toFixed(2) %></td>
                     <td><%=  produto.setor %></td>
@@ -51,18 +55,31 @@
         <%- include('../partials/modal/products/edit'); %>
         <%- include('../partials/modal/products/add'); %>
         <%- include('../partials/modal/products/search'); %>
+        <%- include('../partials/modal/products/venda'); %>
 
-        Ideias para a pagina produtos: <br>
-        - tabela simples com os itens da tabela de produtos<br>
-        - opção de adicionar um item novo (administrador)<br>
-        - opção de criar venda<br>&nbsp;&nbsp;&nbsp;&nbsp;
-        - modal<br>&nbsp;&nbsp;&nbsp;&nbsp;
-        - esse modal será separado em duas colunas, uma com itens de uma pesquisa e uma com um "carrinho de compras" + a
-        inserção do cliente (com aquele esquema de validar cpf)<br>&nbsp;&nbsp;&nbsp;&nbsp;
-        - na aba de itens de pesquisa, será possível procurar por itens do banco de dados<br>&nbsp;&nbsp;&nbsp;&nbsp;
-        - nos itens do carrinho de compras, será inserido o preço de cada item, e removê-lo do
-        carrinho<br>&nbsp;&nbsp;&nbsp;&nbsp;
-        - ao clicar em "realizar venda", os dados serão validados e a venda será realizada
+        <script>
+        var checkboxes = document.getElementsByClassName('item-checkbox');
+        var selectedItems = JSON.parse(localStorage.getItem("selectedProduct"));
+        if (!selectedItems) selectedItems = [];
+            
+        for (let checkbox of checkboxes) {
+            let id = checkbox.dataset.id;
+            if (selectedItems.includes(id)) {
+                checkbox.checked = true;
+            }
+
+            checkbox.addEventListener('change', (event) => {
+                if (selectedItems.includes(id)) {
+                    const index = selectedItems.indexOf(id);
+                    selectedItems.splice(index, 1); 
+                    localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
+                    return;
+                }
+                selectedItems.push(id);
+                localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
+        });
+        }
+        </script>
     </div>
 </body>
 
