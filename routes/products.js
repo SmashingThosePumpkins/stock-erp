@@ -70,4 +70,24 @@ router.post("/search", async function (req, res) {
     res.status(404).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
 })
 
+router.get("/new", async function (req, res) {
+    let settings = await Login.check();
+    if (!settings) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
+        return;
+    }
+
+    let selectedProducts = req.query.selectedProducts;
+    console.log(JSON.parse(selectedProducts));
+    if (!selectedProducts) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
+        return;
+    }
+
+    res.render("pages/venda", {
+        products: result[0],
+        settings: JSON.parse(selectedProducts)
+    });
+})
+
 module.exports = router;

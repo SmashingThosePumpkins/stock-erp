@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+<%- include('../partials/head'); %>
+
+<body class="wrapper">
+    <%- include('../partials/nav'); %>
+    <div class="content-layout">
+        <%- include('../partials/header', {"page": "Nova venda" }); %>
+        <div style="display:flex; flex-direction: row;">
+            <table class="standard-table" style="width: 100%">
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Descrição
+                    </th>
+                    <th width="40">
+                         
+                    </th>
+                </tr>
+                <% console.log(products); for(let product of products) { %>
+                <tr>
+                    <td>
+                        <%= product.id %>
+                    </td>
+                    <td>
+                        <%= product.descricao %>
+                    </td>
+                    <td>
+                        <button class="table-button button-red"
+                                onclick="toggleRemoveModal('<%= produto.id %>');">✗</button>
+                    </td>
+                </tr>
+                <% } %>
+                </table>
+            <div style="flex: 1">
+                <form>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

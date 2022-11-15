@@ -5,20 +5,25 @@
 <body class="wrapper">
     <%- include('../partials/nav'); %>
     <div class="content-layout">
-        <%- include('../partials/header', {"page": "Produtos"}); %>
+        <%- include('../partials/header', {"page": "Produtos" }); %>
 
         <div class="tabs-div">
-            <button class="search-button pretty-button tab-button" onclick="toggleSearchModal()"><span>🔍 Buscar
-                    produto</span></button>
-            <button class="add-button pretty-button tab-button" onclick="toggleVendaModal()"><span>🏠 Nova
-                    venda</span></button>
+            <button class="search-button pretty-button tab-button" onclick="toggleSearchModal()"><span>🔍
+                    Buscar produto</span></button>
+            <a href="#" id="new-venda-link"><button class="add-button pretty-button tab-button"><span>🏠 Nova
+                    venda</span></button></a>
             <% if (settings[0].administrador) { %> <button class="add-button pretty-button tab-button"
                 onclick="toggleAddModal()"><span>🛒 Adicionar
-                    produto</span></button> <% } %>
+                    produto</span></button>
+            <% } %>
 
         </div>
         <hr class="tab-leaner" />
         <div class="light-bordered-container" style="overflow-y: auto; height: 50vh;">
+            <div style="width: 80%; margin: 0 auto; padding-bottom: 15px;">
+                <input type="checkbox" id="enable-checkboxes" style="padding-bottom: 20px; cursor:pointer;"><label
+                    for="enable-checkboxes" style="cursor:pointer;">&nbsp;Habilitar seleção de itens a venda</label>
+            </div>
             <table class="standard-table">
                 <tr>
                     <th width="50">ID</th>
@@ -28,16 +33,24 @@
                     <th width="50">Prateleira</th>
                     <th width="50"> </th>
                 </tr>
-                <% products.forEach(produto => { %>
+                <% products.forEach(produto=> { %>
                 <tr>
                     <td>
-                        <input type="checkbox" class="item-checkbox" data-id="<%= produto.id %>">
+                        <input type="checkbox" class="item-checkbox" data-product="<%= JSON.stringify(produto) %>" hidden>
                         <%= produto.id %>
                     </td>
-                    <td><%= produto.descricao %></td>
-                    <td><%=  "R$ " + (Math.round(produto.valor * 100) / 100).toFixed(2) %></td>
-                    <td><%=  produto.setor %></td>
-                    <td><%=  produto.prateleira %> </td>
+                    <td>
+                        <%= produto.descricao %>
+                    </td>
+                    <td>
+                        <%= "R$ " + (Math.round(produto.valor * 100) / 100).toFixed(2) %>
+                    </td>
+                    <td>
+                        <%= produto.setor %>
+                    </td>
+                    <td>
+                        <%= produto.prateleira %>
+                    </td>
                     <td>
                         <div class="table-button-container">
                             <button class="table-button button-red"
@@ -55,30 +68,48 @@
         <%- include('../partials/modal/products/edit'); %>
         <%- include('../partials/modal/products/add'); %>
         <%- include('../partials/modal/products/search'); %>
-        <%- include('../partials/modal/products/venda'); %>
 
         <script>
-        var checkboxes = document.getElementsByClassName('item-checkbox');
-        var selectedItems = JSON.parse(localStorage.getItem("selectedProduct"));
-        if (!selectedItems) selectedItems = [];
-            
-        for (let checkbox of checkboxes) {
-            let id = checkbox.dataset.id;
-            if (selectedItems.includes(id)) {
-                checkbox.checked = true;
+            var checkboxes = document.getElementsByClassName('item-checkbox');
+            var checkboxEnabler = document.getElementById('enable-checkboxes');
+
+            checkboxEnabler.addEventListener('change', (e) => {
+                for (let c of checkboxes) {
+                    c.toggleAttribute("hidden")
+                }
+            })
+
+            var selectedItems = JSON.parse(localStorage.getItem("selectedProduct"));
+            if (!selectedItems) selectedItems = [];
+
+            for (let checkbox of checkboxes) {
+                let product = checkbox.dataset.product;
+                let id = product.id;
+                if (selectedItems.includes(JSON.stringify(product))) {
+                    checkbox.checked = true;
+                }
+
+                checkbox.addEventListener('change', (event) => {
+                    if (selectedItems.includes(JSON.stringify(product))) {
+                        const index = selectedItems.indexOf(JSON.stringify(product));
+                        selectedItems.splice(index, 1);
+                        localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
+                        updateLink();
+                        return;
+                    }
+                    selectedItems.push(JSON.stringify(product));
+                    localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
+                    updateLink();
+                });
             }
 
-            checkbox.addEventListener('change', (event) => {
-                if (selectedItems.includes(id)) {
-                    const index = selectedItems.indexOf(id);
-                    selectedItems.splice(index, 1); 
-                    localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
-                    return;
-                }
-                selectedItems.push(id);
-                localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
-        });
-        }
+            updateLink();
+
+            function updateLink() {
+                let a = document.getElementById("new-venda-link");
+                a.href = "/products/new?selectedProducts=" + JSON.stringify(selectedItems);
+                console.log(a.href);
+            }
         </script>
     </div>
 </body>
