@@ -2,45 +2,96 @@
 <html lang="pt">
 <%- include('../partials/head'); %>
 
-<body class="wrapper">
-    <%- include('../partials/nav'); %>
-    <div class="content-layout">
-        <%- include('../partials/header', {"page": "Nova venda" }); %>
-        <div style="display:flex; flex-direction: row;">
-            <table class="standard-table" style="width: 100%">
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Descrição
-                    </th>
-                    <th width="40">
-                         
-                    </th>
-                </tr>
-                <% console.log(products); for(let product of products) { %>
-                <tr>
-                    <td>
-                        <%= product.id %>
-                    </td>
-                    <td>
-                        <%= product.descricao %>
-                    </td>
-                    <td>
-                        <button class="table-button button-red"
-                                onclick="toggleRemoveModal('<%= produto.id %>');">✗</button>
-                    </td>
-                </tr>
-                <% } %>
-                </table>
-            <div style="flex: 1">
-                <form>
+    <body class="wrapper">
+        <%- include('../partials/nav'); %>
+            <div class="content-layout">
+                <%- include('../partials/header', {"page": "Nova venda" }); %>
+                    <div style="display:flex; flex-direction: row;">
+                        <table class="standard-table" style="width: 100%">
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Descrição
+                                </th>
+                                <th width="40">
 
-                </form>
+                                </th>
+                            </tr>
+                            <% for(let product of products) { %>
+                                <tr id="row<%= product.id %>">
+                                    <td>
+                                        <%= product.id %>
+                                    </td>
+                                    <td>
+                                        <%= product.descricao %>
+                                    </td>
+                                    <td>
+                                        <button class="table-button button-red remove-item" data-product="<%= JSON.stringify(product) %>">✗</button>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </table>
+                        <div style="flex: 1">
+                            <form>
+
+                            </form>
+                        </div>
+                    </div>
             </div>
-        </div>
-    </div>
-</body>
+
+            <script>
+               // document.getElementById("cpf-input").addEventListener('change', (e) => {
+                //    updateLink();
+                //})
+
+                var selectedItems = JSON.parse(localStorage.getItem('selectedProduct'));
+                let buttons = document.getElementsByClassName("remove-item");
+
+                var productObjects = [];
+                for (let p of selectedItems) productObjects.push(JSON.parse(p.replace(/\\/g , "").substring(1).slice(0, -1)));
+
+                for (let button of buttons) {
+                    let product = button.dataset.product;
+                    let id = JSON.parse(product).id;
+
+                    console.log("configurou!")
+
+                    button.addEventListener('click', (event) => {
+                        console.log("acionou evento!")
+                        console.log(productObjects);
+                        console.log(JSON.parse(product));
+                        if (productObjects.filter(p => p.id == JSON.parse(product).id)) {
+                            const index = productObjects.indexOf(product);
+                            console.log("2")
+                            productObjects.splice(index, 1);
+                            console.log("3")
+                            localStorage.setItem("selectedProduct", JSON.stringify(productObjects))
+                            console.log("4")
+                            updateLink();
+                            console.log("5")
+                        }
+
+                        let i = "row" + id;
+                        console.log(i);
+                        let linhaDaTabela = document.getElementById(i);
+                         console.log("6")
+                            linhaDaTabela.style = 'visibility: hidden;';
+                            console.log("7")
+                    });
+                }
+
+                updateLink();
+
+                function updateLink() {
+                //    let a = document.getElementById("new-venda-link");
+                //    let link = "/products/new?cpfCliente=" + document.getElementById("cpf-input").value
+                //        + "&selectedProducts=" + JSON.stringify(selectedItems);
+                //    a.href = link;
+                //    console.log(a.href);
+                }
+            </script>
+    </body>
 
 </html>

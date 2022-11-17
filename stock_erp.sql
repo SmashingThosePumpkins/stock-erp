@@ -7,8 +7,8 @@ CREATE TABLE usuario (
     nome VARCHAR(30),
     senha VARCHAR(30),
     administrador BOOLEAN,
-    data_criacao TIMESTAMP,
-    ultimo_login TIMESTAMP
+    data_criacao DATETIME,
+    ultimo_login DATETIME
 );
 
 CREATE TABLE perfil_cliente (
@@ -33,7 +33,7 @@ CREATE TABLE movimento_peca (
     id_vendedor INT,
     tipo_conta INT(1),
     valor FLOAT,
-    horario TIMESTAMP,
+    horario DATETIME,
    	FOREIGN KEY (id_peca) REFERENCES perfil_peca(id),
     FOREIGN KEY (id_cliente) REFERENCES perfil_cliente(id),
     FOREIGN KEY (id_vendedor) REFERENCES usuario(id)
