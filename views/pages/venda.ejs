@@ -49,36 +49,22 @@
                 var selectedItems = JSON.parse(localStorage.getItem('selectedProduct'));
                 let buttons = document.getElementsByClassName("remove-item");
 
-                var productObjects = [];
-                for (let p of selectedItems) productObjects.push(JSON.parse(p.replace(/\\/g , "").substring(1).slice(0, -1)));
-
                 for (let button of buttons) {
-                    let product = button.dataset.product;
-                    let id = JSON.parse(product).id;
+                    let product = JSON.parse(button.dataset.product);
+                    let id = product.id;
 
                     console.log("configurou!")
 
                     button.addEventListener('click', (event) => {
-                        console.log("acionou evento!")
-                        console.log(productObjects);
-                        console.log(JSON.parse(product));
-                        if (productObjects.filter(p => p.id == JSON.parse(product).id)) {
-                            const index = productObjects.indexOf(product);
-                            console.log("2")
-                            productObjects.splice(index, 1);
-                            console.log("3")
-                            localStorage.setItem("selectedProduct", JSON.stringify(productObjects))
-                            console.log("4")
+                        if (selectedItems.some(p => p.id == id)) {
+                            const index = selectedItems.findIndex(p => p.id == id);
+                            selectedItems.splice(index, 1);
+                            localStorage.setItem("selectedProduct", JSON.stringify(selectedItems));
                             updateLink();
-                            console.log("5")
                         }
 
-                        let i = "row" + id;
-                        console.log(i);
-                        let linhaDaTabela = document.getElementById(i);
-                         console.log("6")
-                            linhaDaTabela.style = 'visibility: hidden;';
-                            console.log("7")
+                        let linhaDaTabela = document.getElementById("row" + id);
+                        linhaDaTabela.style = 'visibility: collapse;';
                     });
                 }
 

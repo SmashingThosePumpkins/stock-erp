@@ -83,21 +83,23 @@
             if (!selectedItems) selectedItems = [];
 
             for (let checkbox of checkboxes) {
-                let product = checkbox.dataset.product;
+                let product = JSON.parse(checkbox.dataset.product);
                 let id = product.id;
-                if (selectedItems.includes(JSON.stringify(product))) {
+                
+                if (selectedItems.some(p => p.id == id)) {
                     checkbox.checked = true;
                 }
 
                 checkbox.addEventListener('change', (event) => {
-                    if (selectedItems.includes(JSON.stringify(product))) {
-                        const index = selectedItems.indexOf(JSON.stringify(product));
+                    if (selectedItems.some(p => p.id == id)) {
+                        var index = selectedItems.findIndex(p => p.id == id);
                         selectedItems.splice(index, 1);
                         localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
                         updateLink();
                         return;
                     }
-                    selectedItems.push(JSON.stringify(product));
+                    console.log("S")
+                    selectedItems.push(product);
                     localStorage.setItem("selectedProduct", JSON.stringify(selectedItems))
                     updateLink();
                 });

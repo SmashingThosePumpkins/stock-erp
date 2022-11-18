@@ -77,10 +77,7 @@ router.get("/new", async function (req, res) {
         return;
     }
 
-    let selectedProducts = req.query.selectedProducts;
-    let rawSelectedProductsArray = JSON.parse(selectedProducts);
-    let productObjects = [];
-    for (let p of rawSelectedProductsArray) productObjects.push(JSON.parse(p.replace(/\\/g , "").substring(1).slice(0, -1)));
+let selectedProducts = req.query.selectedProducts;
 
     if (!selectedProducts) {
         res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
@@ -88,7 +85,7 @@ router.get("/new", async function (req, res) {
     }
 
     res.render("pages/venda", {
-        products: productObjects,
+        products: JSON.parse(selectedProducts),
         settings: settings[0]
     });
 })
