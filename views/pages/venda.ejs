@@ -7,7 +7,7 @@
             <div class="content-layout">
                 <%- include('../partials/header', {"page": "Nova venda" }); %>
                     <div style="display:flex; flex-direction: row;">
-                        <table class="standard-table" style="width: 100%">
+                        <table class="standard-table" style="width: 30%">
                             <tr>
                                 <th>
                                     ID
@@ -33,18 +33,19 @@
                                 </tr>
                             <% } %>
                         </table>
-                        <div style="flex: 1">
-                            <form>
-
-                            </form>
+                        <div style="width: 60%; padding-left: 30;">
+                            <label for="cpf-input">CPF do cliente:</label><br>
+                            <input type="text" id="cpf-input" maxlength="11"><br><br><br>
+                            <a id="new-venda-link"><button class="pretty-button">Realizar venda</button></a>
                         </div>
                     </div>
             </div>
 
             <script>
-               // document.getElementById("cpf-input").addEventListener('change', (e) => {
-                //    updateLink();
-                //})
+                document.getElementById("cpf-input").addEventListener('change', (e) => updateLink());
+                document.getElementById("cpf-input").addEventListener('input', (e) => updateLink());
+                document.getElementById("cpf-input").addEventListener('keydown', (e) => updateLink());
+                document.getElementById("cpf-input").addEventListener('paste', (e) => updateLink());
 
                 var selectedItems = JSON.parse(localStorage.getItem('selectedProduct'));
                 let buttons = document.getElementsByClassName("remove-item");
@@ -71,11 +72,11 @@
                 updateLink();
 
                 function updateLink() {
-                //    let a = document.getElementById("new-venda-link");
-                //    let link = "/products/new?cpfCliente=" + document.getElementById("cpf-input").value
-                //        + "&selectedProducts=" + JSON.stringify(selectedItems);
-                //    a.href = link;
-                //    console.log(a.href);
+                    let a = document.getElementById("new-venda-link");
+                    let link = "/products/new?cpfCliente=" + document.getElementById("cpf-input").value
+                        + "&selectedProducts=" + JSON.stringify(selectedItems);
+                    a.href = link;
+                    console.log(a.href);
                 }
             </script>
     </body>
