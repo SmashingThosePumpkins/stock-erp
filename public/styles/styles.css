@@ -76,8 +76,13 @@
 
 .logomark {
     width: 150px;
-    margin: 20px 50px 20px 50px;
+    margin: 10px 50px 0px 50px;
     object-fit: cover;
+}
+
+.logomark:hover {
+    transition-duration: 1s;
+    filter: brightness(1.1)
 }
 
 .header {
