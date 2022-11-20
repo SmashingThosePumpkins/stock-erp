@@ -428,3 +428,11 @@ p {
     object-fit: cover;
     filter: grayscale(60%);
 }
+
+.hidden-row {
+    visibility: collapse;
+}
+
+.sold-item {
+    text-decoration: line-through;
+}

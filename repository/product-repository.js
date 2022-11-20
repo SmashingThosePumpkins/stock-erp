@@ -52,7 +52,7 @@ module.exports = {
     addProduct: async function (product) {
         if (!product.setor || !product.descricao || !product.prateleira || !product.valor) return 400;
 
-        let query = `INSERT INTO perfil_peca VALUES (null, "${product.valor}", "${product.descricao}", "${product.setor.toUpperCase()}", ${product.prateleira});`;
+        let query = `INSERT INTO perfil_peca VALUES (null, "${product.valor}", "${product.descricao}", "${product.setor.toUpperCase()}", ${product.prateleira}, false);`;
         console.log(query);
         await pool.query(query);
         return 100;

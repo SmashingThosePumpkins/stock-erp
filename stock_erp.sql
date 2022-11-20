@@ -1,4 +1,4 @@
-DROP DATABASE stock_erp;
+DROP DATABASE IF EXISTS stock_erp;
 CREATE DATABASE stock_erp;
 USE stock_erp;
 
@@ -23,7 +23,8 @@ CREATE TABLE perfil_peca (
     valor FLOAT,
     descricao VARCHAR(200),
     setor VARCHAR(1),
-    prateleira INTEGER(30)
+    prateleira INTEGER,
+    vendida BOOLEAN
 );
 
 CREATE TABLE movimento_peca (
@@ -57,17 +58,17 @@ INSERT INTO perfil_cliente VALUES
     (null, "25349449168", "Pedro Ricardo Gustavo Rezende", "11982193853");
 
 INSERT INTO perfil_peca VALUES
-    (null, 65.0, "cilindro roda traseira palio", "C",1),
-    (null, 70.0, "pneu aro 13 continental", "C",2),
-    (null, 70.0, "pneu aro 14 michelin", "C",2),
-    (null, 45.0, "sensor temperatura corsa", "B",3),
-    (null, 63.0, "interruptor radiador", "A",4),
-    (null, 250.0, "servo freio hidrovácuo", "A",3),
-    (null, 45.0, "interruptor pressao oleo", "B", 1),
-    (null, 200.0, "cilindro mestre freio", "A",2),
-    (null, 120.0, "pinça do freio palio", "A",2),
-    (null, 120.0, "tubo de injeção ford fiesta", "B",4),
-    (null, 120.0, "tubo injeção combustivel", "B",4),
-    (null, 75.0, "eixo motor uno", "B", 1),
-    (null, 100.0, "vidro porta traseira xsara d", "F", 3),
-    (null, 100.0, "vidro porta traseira xsara e", "F", 3);
+    (null, 65.0, "cilindro roda traseira palio", "C",1, false),
+    (null, 70.0, "pneu aro 13 continental", "C",2, false),
+    (null, 70.0, "pneu aro 14 michelin", "C",2, false),
+    (null, 45.0, "sensor temperatura corsa", "B",3, false),
+    (null, 63.0, "interruptor radiador", "A",4, false),
+    (null, 250.0, "servo freio hidrovácuo", "A",3, false),
+    (null, 45.0, "interruptor pressao oleo", "B", 1, false),
+    (null, 200.0, "cilindro mestre freio", "A",2, false),
+    (null, 120.0, "pinça do freio palio", "A",2, false),
+    (null, 120.0, "tubo de injeção ford fiesta", "B",4, false),
+    (null, 120.0, "tubo injeção combustivel", "B",4, false),
+    (null, 75.0, "eixo motor uno", "B", 1, false),
+    (null, 100.0, "vidro porta traseira xsara d", "F", 3, false),
+    (null, 100.0, "vidro porta traseira xsara e", "F", 3, true);

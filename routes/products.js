@@ -11,10 +11,15 @@ router.get("/", async function (req, res) {
         res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
         return;
     }
+
+    let clear = false;
+    if (req.query.clear) clear = true;
+
     productRepository.findAllProducts().then(result => {
         res.render("pages/products", {
             products: result[0],
-            settings: settings[0]
+            settings: settings[0],
+            clear: clear
         });
     });
 })
@@ -131,7 +136,7 @@ router.post("/newclient", async function (req, res) {
 
     clientRepository.addClient(req.body).then(a => {
             productRepository.newSale(settings[0][0].id, lastNewQuery.cpfCliente, JSON.parse(lastNewQuery.selectedProducts), 0.0)
-            res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
+            res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products?fresh=true`);
         }
     );
 })
