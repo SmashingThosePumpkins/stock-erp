@@ -31,7 +31,6 @@ CREATE TABLE movimento_peca (
     id_peca INT,
     id_cliente INT,
     id_vendedor INT,
-    tipo_conta INT(1),
     valor FLOAT,
     horario DATETIME,
    	FOREIGN KEY (id_peca) REFERENCES perfil_peca(id),

@@ -1,4 +1,5 @@
 const Fuse = require('fuse.js');
+const clientRepository = require('./client-repository.js');
 const pool = require("./dbconfig.js").pool;
 
 module.exports = {
@@ -77,5 +78,18 @@ module.exports = {
         if (!id) return 400;
         await pool.query("DELETE FROM perfil_peca WHERE perfil_peca.id = ?;", id);
         return 100;
+    },
+    newSale: async function (idvendor, cpfCliente, products, valor) {
+        console.log("c")
+        clientRepository.findClientByCpf(cpfCliente).then(cliente => {
+            console.log(cliente[0][0])
+            console.log(products)
+            for (let product of products) {
+                let query = `INSERT INTO movimento_peca VALUES (null, ${product.id}, ${cliente[0][0].id}, ${idvendor}, ${valor}, "${new Date().toISOString().slice(0, 19).replace('T', ' ')}");`;
+                console.log(query);
+                pool.query(query);
+                this.deleteProduct(product.id);
+            }
+        });
     }
 }

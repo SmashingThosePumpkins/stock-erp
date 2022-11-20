@@ -13,9 +13,10 @@ module.exports = {
         );
     },
     findClientByCpf: async function (cpf) {
-        return pool.query(
-            "SELECT * FROM perfil_cliente WHERE perfil_cliente.cpf = ?", cpf
-        );
+            let result = await pool.query(
+                "SELECT * FROM perfil_cliente WHERE perfil_cliente.cpf = ?", cpf
+            );
+            return result;
     },
     findClientsByName: async function (nome) {
         var clients = await pool.query(

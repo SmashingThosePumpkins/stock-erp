@@ -33,10 +33,13 @@
                                 </tr>
                             <% } %>
                         </table>
-                        <div style="width: 60%; padding-left: 30;">
-                            <label for="cpf-input">CPF do cliente:</label><br>
-                            <input type="text" id="cpf-input" maxlength="11"><br><br><br>
-                            <a id="new-venda-link"><button class="pretty-button">Realizar venda</button></a>
+                        <div style="min-height: 20vh; width: 55%; padding: 30; position:relative;" class="light-bordered-container">
+                            <h2>&nbsp;&nbsp;&nbsp;&nbsp;Informações do cliente</h2>
+                            <div style="position:absolute; top: 60px; left:25px;">
+                                <label for="cpf-input">CPF:</label><br>
+                                <input type="number" id="cpf-input">
+                            </div>
+                            <a id="new-venda-link"><button class="pretty-button" style="position:absolute; bottom: 20px; left:25px;">Realizar venda</button></a>
                         </div>
                     </div>
             </div>

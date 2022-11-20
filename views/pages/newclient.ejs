@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+<%- include('../partials/head'); %>
+
+<body class="wrapper" style="background: #ddd;">
+    <div class="content-layout">
+        <div id="popup-container">
+            <h2>O cliente inserido não está cadastrado no sistema. Finalize o cadastro para realizar a venda.</h2>
+            <form class="form" action="/products/newclient" method="post" enctype="application/json">
+                <input type="text" name="id" id="a-id" hidden>
+                <label>CPF:</label> <br>
+                <input type="text" name="cpf" id="a-cpf" maxlength="11" value="<%= cpf %>"> <br>
+                <label>Nome do cliente:</label> <br>
+                <input type="text" name="nome" id="a-name" maxlength="50"> <br>
+                <label>Telefone:</label> <br>
+                <input type="tel" name="telefone" id="a-telefone" style="margin-bottom: 1.2em;" maxlength="16"> <br>
+                <input class="pretty-button submit-button" type="submit" value="Adicionar usuário">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

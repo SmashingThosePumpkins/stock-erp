@@ -3,6 +3,7 @@ var router = express.Router();
 const Login = require('../login')
 
 const productRepository = require('../repository/product-repository');
+const clientRepository = require('../repository/client-repository');
 
 router.get("/", async function (req, res) {
     let settings = await Login.check();
@@ -70,6 +71,8 @@ router.post("/search", async function (req, res) {
     res.status(404).redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
 })
 
+var lastNewQuery = null;
+
 router.get("/new", async function (req, res) {
     let settings = await Login.check();
     if (!settings) {
@@ -77,17 +80,60 @@ router.get("/new", async function (req, res) {
         return;
     }
 
-let selectedProducts = req.query.selectedProducts;
+    if (!req.query.cpfCliente) {
+        let selectedProducts = req.query.selectedProducts;
 
-    if (!selectedProducts) {
+        if (!selectedProducts) {
+            res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
+            return;
+        }
+
+        res.render("pages/venda", {
+            products: JSON.parse(selectedProducts),
+            settings: settings[0]
+        });
+        return;
+    }
+
+    console.log("a")
+    let client = await clientRepository.findClientByCpf(req.query.cpfCliente);
+    console.log("b")
+    if (client[0][0]) {
+        productRepository.newSale(settings[0][0].id, req.query.cpfCliente, JSON.parse(req.query.selectedProducts), 0.0);
         res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
         return;
     }
 
-    res.render("pages/venda", {
-        products: JSON.parse(selectedProducts),
+    lastNewQuery = req.query;
+    res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products/newclient`);
+})
+
+router.get("/newclient", async function (req, res) {
+    let settings = await Login.check();
+    if (!settings) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
+        return;
+    }
+
+    console.log(lastNewQuery);
+    res.render("pages/newclient", {
+        cpf: lastNewQuery.cpfCliente,
         settings: settings[0]
     });
+})
+
+router.post("/newclient", async function (req, res) {
+    let settings = await Login.check();
+    if (!settings) {
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/login`);
+        return;
+    }
+
+    clientRepository.addClient(req.body).then(a => {
+            productRepository.newSale(settings[0][0].id, lastNewQuery.cpfCliente, JSON.parse(lastNewQuery.selectedProducts), 0.0)
+            res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
+        }
+    );
 })
 
 module.exports = router;
