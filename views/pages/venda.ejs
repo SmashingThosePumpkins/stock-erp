@@ -15,6 +15,9 @@
                                 <th>
                                     Descrição
                                 </th>
+                                <th>
+                                    Preço
+                                </th>
                                 <th width="40">
 
                                 </th>
@@ -26,6 +29,9 @@
                                     </td>
                                     <td>
                                         <%= product.descricao %>
+                                    </td>
+                                    <td>
+                                        <input type="number" value="<%= product.valor %>" min="0" max="10000" step=".01" class="invisible-field price-field" id="<%= product.id %>">
                                     </td>
                                     <td>
                                         <button class="table-button button-red remove-item" data-product="<%= JSON.stringify(product) %>">✗</button>
@@ -45,13 +51,14 @@
             </div>
 
             <script>
-                document.getElementById("cpf-input").addEventListener('change', (e) => updateLink());
-                document.getElementById("cpf-input").addEventListener('input', (e) => updateLink());
-                document.getElementById("cpf-input").addEventListener('keydown', (e) => updateLink());
-                document.getElementById("cpf-input").addEventListener('paste', (e) => updateLink());
+                let cpfInput = document.getElementById("cpf-input");
+                cpfInput.addEventListener('change', (e) => updateLink());
+                cpfInput.addEventListener('input', (e) => updateLink());
+                cpfInput.addEventListener('keydown', (e) => updateLink());
+                cpfInput.addEventListener('paste', (e) => updateLink());
 
                 var selectedItems = JSON.parse(localStorage.getItem('selectedProduct'));
-                let buttons = document.getElementsByClassName("remove-item");
+                const buttons = document.getElementsByClassName("remove-item");
 
                 for (let button of buttons) {
                     let product = JSON.parse(button.dataset.product);
@@ -70,6 +77,22 @@
                         let linhaDaTabela = document.getElementById("row" + id);
                         linhaDaTabela.style = 'visibility: collapse;';
                     });
+                }
+
+                const priceInputs = document.getElementsByClassName('price-field');
+
+                for (let i of priceInputs) {
+                    i.addEventListener('change', (e) => updatePrice(i.id, i.value));
+                    i.addEventListener('input', (e) => updatePrice(i.id, i.value));
+                    i.addEventListener('keydown', (e) => updatePrice(i.id, i.value));
+                    i.addEventListener('paste', (e) => updatePrice(i.id, i.value));
+                }
+
+                function updatePrice(id, price) {
+                    let s = JSON.parse(localStorage.getItem('selectedProduct'));
+                    let item = s.find(p => p.id == id);
+                    item.valor = price;
+                    localStorage.setItem("selectedProduct", JSON.stringify(s));
                 }
 
                 updateLink();

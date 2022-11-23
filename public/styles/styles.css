@@ -436,3 +436,10 @@ p {
 .sold-item {
     text-decoration: line-through;
 }
+
+.invisible-field {
+    background:none;
+    border:none;
+    border-bottom: 1px solid #ddd;
+    font-size: medium;
+}

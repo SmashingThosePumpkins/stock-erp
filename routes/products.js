@@ -85,9 +85,10 @@ router.get("/new", async function (req, res) {
         return;
     }
 
-    if (!req.query.cpfCliente) {
-        let selectedProducts = req.query.selectedProducts;
+    let selectedProducts = req.query.selectedProducts;
+    await updateSelectedProductsInDatabase(selectedProducts);
 
+    if (!req.query.cpfCliente) {
         if (!selectedProducts) {
             res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
             return;
@@ -100,11 +101,9 @@ router.get("/new", async function (req, res) {
         return;
     }
 
-    console.log("a")
     let client = await clientRepository.findClientByCpf(req.query.cpfCliente);
-    console.log("b")
     if (client[0][0]) {
-        productRepository.newSale(settings[0][0].id, req.query.cpfCliente, JSON.parse(req.query.selectedProducts), 0.0);
+        productRepository.newSale(settings[0][0].id, req.query.cpfCliente, JSON.parse(selectedProducts), 0.0);
         res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
         return;
     }
@@ -112,6 +111,12 @@ router.get("/new", async function (req, res) {
     lastNewQuery = req.query;
     res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products/newclient`);
 })
+
+function updateSelectedProductsInDatabase (selectedProducts) {
+    for (let product of selectedProducts) {
+        productRepository.alterProduct(product);
+    }
+}
 
 router.get("/newclient", async function (req, res) {
     let settings = await Login.check();
@@ -134,11 +139,9 @@ router.post("/newclient", async function (req, res) {
         return;
     }
 
-    clientRepository.addClient(req.body).then(a => {
-            productRepository.newSale(settings[0][0].id, lastNewQuery.cpfCliente, JSON.parse(lastNewQuery.selectedProducts), 0.0)
-            res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products?fresh=true`);
-        }
-    );
+    await clientRepository.addClient(req.body); 
+    productRepository.newSale(settings[0][0].id, lastNewQuery.cpfCliente, JSON.parse(lastNewQuery.selectedProducts), 0.0)
+    res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products?fresh=true`);
 })
 
 module.exports = router;
