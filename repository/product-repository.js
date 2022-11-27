@@ -79,19 +79,12 @@ module.exports = {
         await pool.query("DELETE FROM perfil_peca WHERE perfil_peca.id = ?;", id);
         return 100;
     },
-    newSale: async function (idvendor, cpfCliente, products, valor) {
-        console.log("c")
-        clientRepository.findClientByCpf(cpfCliente).then(cliente => async function () {
-            console.log(cliente[0][0])
-            console.log(products)
-            for (let product of products) {
-                let query = `INSERT INTO movimento_peca VALUES (null, ${product.id}, ${cliente[0][0].id}, ${idvendor}, ${valor}, "${new Date().toISOString().slice(0, 19).replace('T', ' ')}");`;
-                console.log(query);
-                await pool.query(query);
-                let query2 = `UPDATE perfil_peca SET vendida = 1 WHERE perfil_peca.id = ${product.id};`;
-                console.log(query2);
-                await pool.query(query2);
-            }
-        });
+    newSale: async function (idvendor, idcliente, products) {
+        for (let product of products) {
+            let query = `INSERT INTO movimento_peca VALUES (null, ${product.id}, ${idcliente}, ${idvendor}, "${new Date().toISOString().slice(0, 19).replace('T', ' ')}");`;
+            await pool.query(query);
+            let query2 = `UPDATE perfil_peca SET vendida = 1 WHERE perfil_peca.id = ${product.id};`;
+            await pool.query(query2);
+        }
     }
 }

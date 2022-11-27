@@ -12,14 +12,14 @@ router.get("/", async function (req, res) {
         return;
     }
 
-    let clear = false;
-    if (req.query.clear) clear = true;
+    let fresh = false;
+    if (req.query.fresh) fresh = true;
 
     productRepository.findAllProducts().then(result => {
         res.render("pages/products", {
             products: result[0],
             settings: settings[0],
-            clear: clear
+            fresh: fresh
         });
     });
 })
@@ -103,8 +103,8 @@ router.get("/new", async function (req, res) {
 
     let client = await clientRepository.findClientByCpf(req.query.cpfCliente);
     if (client[0][0]) {
-        productRepository.newSale(settings[0][0].id, req.query.cpfCliente, JSON.parse(selectedProducts), 0.0);
-        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products`);
+        await productRepository.newSale(settings[0][0].id, client[0][0].id, JSON.parse(selectedProducts));
+        res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products?fresh=true`);
         return;
     }
 
@@ -112,9 +112,9 @@ router.get("/new", async function (req, res) {
     res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products/newclient`);
 })
 
-function updateSelectedProductsInDatabase (selectedProducts) {
+async function updateSelectedProductsInDatabase (selectedProducts) {
     for (let product of selectedProducts) {
-        productRepository.alterProduct(product);
+        await productRepository.alterProduct(product);
     }
 }
 
@@ -140,7 +140,8 @@ router.post("/newclient", async function (req, res) {
     }
 
     await clientRepository.addClient(req.body); 
-    productRepository.newSale(settings[0][0].id, lastNewQuery.cpfCliente, JSON.parse(lastNewQuery.selectedProducts), 0.0)
+    let cliente = await clientRepository.findClientByCpf(req.body.cpf); 
+    await productRepository.newSale(settings[0][0].id, cliente[0][0].id, JSON.parse(lastNewQuery.selectedProducts))
     res.redirect(`http://${req.hostname}:${process.env.SERVER_PORT}/products?fresh=true`);
 })
 
