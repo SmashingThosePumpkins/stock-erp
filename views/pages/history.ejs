@@ -1,13 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt">
 <%- include('../partials/head'); %>
+
 <body class="wrapper">
     <%- include('../partials/nav'); %>
     <div class="content-layout">
         <%- include('../partials/header', {"page": "Histórico"}); %>
-        Ideias para a pagina historico: <br>
-        - tabela simples com os itens da tabela de movimentos em ordem de cadastro<br><br><br>
-        <% if (locals.cliente) { %> USUÁRIO: <%= cliente.id %> <% }; %>
+        <hr class="tab-leaner" />
+        <div class="light-bordered-container" style="overflow-y: auto; height: 50vh;">
+            <table class="standard-table">
+                <tr>
+                    <th width="50">ID</th>
+                    <th>Peça</th>
+                    <th>Cliente</th>
+                    <th>Vendedor</th>
+                    <th>Valor</th>
+                    <th>Horário</th>
+                </tr>
+                <% items.forEach(item => { %>
+                <tr>
+                    <td>
+                        <%= item.id %>
+                    </td>
+                    <td>
+                        <%= item.id_peca %>
+                    </td>
+                    <td>
+                        <%= item.id_cliente %>
+                    </td>
+                    <td>
+                        <%= item.id_vendedor %>
+                    </td>
+                    <td>
+                        <%= item.id_peca %>
+                    </td>
+                    <td>
+                        <%= item.horario
+                        .toISOString()
+                        .replace(/T/, ' ')
+                        .replace(/\..+/, ''); %>
+                    </td>
+                </tr>
+                <% }); %>
+            </table>
+        </div>
     </div>
 </body>
+
 </html>
