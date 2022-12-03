@@ -47,6 +47,7 @@ Dentro desse arquivo, insira as seguintes configurações:
 
 ```
 MYSQL_HOST="127.0.0.1"
+MYSQL_PORT=3306
 MYSQL_USER="your-username-here"
 MYSQL_PASSWORD="your-password-here"
 MYSQL_DATABASE="stock_erp"
@@ -54,6 +55,8 @@ SERVER_PORT=7075
 ```
 
 - MYSQL_HOST: Essa configuração define em qual máquina o serviço MySQL Server está rodando. Caso esteja na mesma máquina em que o código será rodado, defina-a como `localhost` ou `127.0.0.1`.
+
+- MYSQL_PORT: Porta ocupada pelo MySQL que está rodando nesse host.
 
 - MYSQL_USER: Usuário do MySQL.
 
