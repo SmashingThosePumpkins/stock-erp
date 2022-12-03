@@ -128,8 +128,16 @@
 
             function updateLink() {
                 let a = document.getElementById("new-venda-link");
-                a.href = "/products/new?selectedProducts=" + JSON.stringify(selectedItems);
-                console.log(a.href);
+
+                console.log(selectedItems)
+                if (selectedItems.length) {
+                    a.href = "/products/new?selectedProducts=" + JSON.stringify(selectedItems);
+                    console.log(a.href);
+                    return;
+                }
+
+                a.href="#";
+                a.addEventListener('click', () => window.alert('Por favor, selecione produtos para serem vendidos!'));
             }
         </script>
     </div>

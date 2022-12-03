@@ -3,7 +3,27 @@
 <%- include('../partials/head'); %>
 <body class="wrapper">
     <div class="content-layout">
-        
+        <img src="/images/blurred-bg.jpeg" class="bg-image">
+        <div class="centered-panel">
+            <form action="/login" method="post">
+                <h1>Stock ERP</h1>
+                <h2>Cadastre-se para continuar.</h2>
+                <br>
+                <label>Usuário:</label><br>
+                <input type="text" name="user">
+                <br>
+                <br>
+                <label>Senha:</label><br>
+                <input type="password" name="pass">
+                <br>
+                <br>
+                <div style="display: flex; flex-direction: row; align-items:center; ">
+                <a href="/signin" style="flex:auto;">Realizar cadastro</a>
+                <input type="submit" class="pretty-button" value="Entrar" style="flex:auto;">
+                </div>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>

@@ -454,12 +454,19 @@ p {
 }
 
 .home-cards li {
-    border: 5px solid black;
+    transition-duration: 0.5s;
+    border: 1px solid black;
     border-radius: 20px;
     background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(221,221,221,1) 60%, rgba(187,187,187,1) 100%);
     width:25%;
     padding: 20px 0px;
     text-align: center;
+    box-shadow: 4px 4px 13px 0px rgba(0,0,0,0.5);
+}
+
+.home-cards li:hover {
+    transform: translateY(-10px);
+    transition-duration: 0.5s;
 }
 
 .home-cards li p {
@@ -469,9 +476,9 @@ p {
 
 .home-cards li img {
     object-fit: cover;
-    width: 170px;
-    height: 200px;
+    aspect-ratio: 1 / 1;
+    height: 20vh;
     border-radius: 40%;
-    border: 2.5px solid black;
+    border: 1px solid black;
     margin: 15px 0px;
 }

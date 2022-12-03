@@ -8,32 +8,32 @@
                 <%- include('../partials/header', {"page": "Nova venda" }); %>
                     <div style="display:flex; flex-direction: row;">
                         <table class="standard-table" style="width: 30%">
-                            <tr>
-                                <th>
+                            <tr style="line-height: 15px; height:15px;" height="15">
+                                <th style="line-height: 15px;">
                                     ID
                                 </th>
-                                <th>
+                                <th style="line-height: 15px;">
                                     Descrição
                                 </th>
-                                <th>
+                                <th style="line-height: 15px;">
                                     Preço
                                 </th>
-                                <th width="40">
+                                <th width="40" style="line-height: 15px;">
 
                                 </th>
                             </tr>
                             <% for(let product of products) { %>
                                 <tr id="row<%= product.id %>">
-                                    <td>
+                                    <td style="line-height: 15px;"">
                                         <%= product.id %>
                                     </td>
-                                    <td>
+                                    <td style="line-height: 15px;">
                                         <%= product.descricao %>
                                     </td>
-                                    <td>
+                                    <td style="line-height: 15px;">
                                         <input type="number" value="<%= product.valor %>" min="0" max="10000" step=".01" class="invisible-field price-field" id="<%= product.id %>">
                                     </td>
-                                    <td>
+                                    <td style="line-height: 15px;">
                                         <button class="table-button button-red remove-item" data-product="<%= JSON.stringify(product) %>">✗</button>
                                     </td>
                                 </tr>
