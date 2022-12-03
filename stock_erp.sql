@@ -41,10 +41,7 @@ CREATE TABLE movimento_peca (
 
 INSERT INTO usuario VALUES
 	(null, "admin", "1234", true, NOW(), null),
-    (null, "usuario_1", "1234", false, NOW(), null),
-    (null, "usuario_2", "1234", false, NOW(), null),
-    (null, "User2392", "1234", true, NOW(), null),
-    (null, "LeUserArio", "1234", false, NOW(), null);
+    (null, "vendedor", "1234", false, NOW(), null);
     
 INSERT INTO perfil_cliente VALUES
     (null, "20303479817", "Kauê Cauê Carlos Melo", "1429940374"),
@@ -54,7 +51,7 @@ INSERT INTO perfil_cliente VALUES
     (null, "15932132124", "Vitor Cauã Hugo Figueiredo", "14998352862"),
     (null, "40808009591", "Rua Manoel Fernandes de Carvalho", "14998660366"),
     (null, "13358625524", "Cláudio Caio Monteiro", "11992825961"),
-    (null, "57881419580", "Igor Renato Castro", "1493867223"),
+    (null, "57881419580", "Igor Renato Castro", "14993867223"),
     (null, "25349449168", "Pedro Ricardo Gustavo Rezende", "11982193853");
 
 INSERT INTO perfil_peca VALUES
